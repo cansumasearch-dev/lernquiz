@@ -1,0 +1,10 @@
+# Word documents
+*.doc
+*.docx
+
+# PDFs
+*.pdf
+
+# temp files
+*.tmp
+*.temp

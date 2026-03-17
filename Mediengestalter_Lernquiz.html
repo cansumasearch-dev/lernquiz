@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mediengestalter – Lernquiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>﻿.options-list,.sidebar__nav{list-style:none;margin:0;padding:0}.sr-only,.option-item__input{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap}*,*::before,*::after{box-sizing:border-box}html{font-size:15px;-webkit-font-smoothing:antialiased}body{margin:0;font-family:"DM Sans",sans-serif;background:#f7f7f5;color:#141414;min-height:100vh}.app{display:flex;flex-direction:row;align-items:stretch;justify-content:flex-start;min-height:100vh}.sidebar{width:270px;min-width:270px;background:#fff;border-right:1px solid #e4e4e0;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;position:sticky;top:0;height:100vh;overflow-y:auto}.sidebar__head{padding:28px 20px 20px;border-bottom:1px solid #e4e4e0}.sidebar__logo{font-family:"Sora",sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:-0.02em;color:#141414;margin-bottom:4px}.sidebar__sub{font-size:.72rem;color:#a0a0a0;line-height:1.4;font-weight:400}.sidebar__nav{flex:1;padding:12px 0}.sidebar__footer{padding:16px 20px;border-top:1px solid #e4e4e0}.overall-progress__label{display:flex;flex-direction:row;align-items:center;justify-content:space-between;margin-bottom:8px}.overall-progress__label span{font-size:.72rem;color:#a0a0a0;font-weight:500}.overall-progress__bar{height:3px;background:#f2f2f0;border-radius:99px;overflow:hidden}.overall-progress__fill{height:100%;background:#141414;border-radius:99px;transition:width .4s cubic-bezier(0.25, 0.1, 0.25, 1);width:0%}.topic-nav-item{display:flex;flex-direction:row;align-items:center;justify-content:flex-start;padding:10px 14px;margin:1px 8px;border-radius:8px;cursor:pointer;transition:all .18s cubic-bezier(0.25, 0.1, 0.25, 1)}.topic-nav-item:focus-visible{outline:2px solid #141414;outline-offset:2px}.topic-nav-item{gap:10px;border:none;background:rgba(0,0,0,0);width:calc(100% - 16px);text-align:left}.topic-nav-item__number{font-family:"Sora",sans-serif;font-size:.68rem;font-weight:700;color:#a0a0a0;letter-spacing:.04em;min-width:20px}.topic-nav-item__name{font-size:.82rem;color:#5c5c5c;font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:all .18s cubic-bezier(0.25, 0.1, 0.25, 1)}.topic-nav-item__status{font-size:.75rem;width:18px;text-align:center;flex-shrink:0}.topic-nav-item.is-active{background:#141414}.topic-nav-item.is-active .topic-nav-item__number{color:hsla(0,0%,100%,.5)}.topic-nav-item.is-active .topic-nav-item__name{color:#fff}.topic-nav-item.is-active .topic-nav-item__status{color:hsla(0,0%,100%,.7)}.topic-nav-item.is-completed:hover{background:#f2f2f0}.topic-nav-item.is-completed:hover .topic-nav-item__name{color:#141414}.topic-nav-item.is-completed .topic-nav-item__name{color:#5c5c5c}.topic-nav-item.is-completed .topic-nav-item__status{color:#1a6b3c}.topic-nav-item.is-skipped:hover{background:#f2f2f0}.topic-nav-item.is-skipped:hover .topic-nav-item__name{color:#141414}.topic-nav-item.is-skipped .topic-nav-item__name{color:#b91c1c}.topic-nav-item.is-skipped .topic-nav-item__status{color:#b91c1c}.topic-nav-item.is-locked{cursor:not-allowed;opacity:.45;pointer-events:none}.topic-nav-item.is-locked .topic-nav-item__name{color:#aaa}.topic-nav-item.is-available:not(.is-active):hover{background:#f2f2f0}.topic-nav-item.is-available:not(.is-active):hover .topic-nav-item__name{color:#141414}.content{flex:1;padding:40px;max-width:760px;margin:0 auto;width:100%}.topic-header{margin-bottom:32px}.topic-header__meta{font-size:.72rem;color:#a0a0a0;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}.topic-header__title{font-family:"Sora",sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:-0.03em;color:#141414;margin:0 0 20px;line-height:1.2}.topic-header__progress-row{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:16px}.topic-header__progress-bar{flex:1;height:3px;background:#f2f2f0;border-radius:99px;overflow:hidden}.topic-header__progress-fill{height:100%;background:#141414;border-radius:99px;transition:width .35s cubic-bezier(0.25, 0.1, 0.25, 1);width:0%}.topic-header__progress-label{font-size:.75rem;color:#a0a0a0;font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}.question-card{background:#fff;border:1px solid #e4e4e0;border-radius:12px;padding:32px;margin-bottom:16px;animation:fadeIn .22s cubic-bezier(0.25, 0.1, 0.25, 1) both}.question-card__index{font-size:.72rem;color:#a0a0a0;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}.question-card__text{font-size:1.05rem;font-weight:600;color:#141414;line-height:1.55;margin-bottom:24px;letter-spacing:-0.01em}.question-card__hint{font-size:.78rem;color:#a0a0a0;margin-bottom:20px;font-style:italic}.question-card__hint::before{content:"💡 "}@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}.options-list{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:8px;margin-bottom:24px}.option-item{display:flex;flex-direction:row;align-items:flex-start;justify-content:flex-start;gap:12px;padding:12px 16px;border:1.5px solid #e4e4e0;border-radius:8px;cursor:pointer;transition:all .18s cubic-bezier(0.25, 0.1, 0.25, 1);user-select:none}.option-item:hover:not(.is-disabled){border-color:#ccccca;background:#f2f2f0}.option-item.is-selected{border-color:#141414;background:#f7f7f5}.option-item.is-correct{border-color:#b5dfc8;background:#f0faf4}.option-item.is-correct .option-item__mark{color:#1a6b3c}.option-item.is-wrong{border-color:#fecaca;background:#fef2f2}.option-item.is-wrong .option-item__mark{color:#b91c1c}.option-item.is-missed{border-color:#b5dfc8;background:#f0faf4;opacity:.7}.option-item.is-disabled{cursor:default;pointer-events:none}.option-item__indicator{width:18px;height:18px;border:1.5px solid #ccccca;border-radius:50%;flex-shrink:0;margin-top:1px;transition:all .18s cubic-bezier(0.25, 0.1, 0.25, 1);display:flex;flex-direction:row;align-items:center;justify-content:center}.option-item__indicator.is-checkbox{border-radius:4px}.option-item__indicator.is-checked{background:#141414;border-color:#141414}.option-item__indicator.is-checked::after{content:"";display:block;width:8px;height:5px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translateY(-1px)}.option-item__label{font-size:.88rem;color:#141414;line-height:1.5;font-weight:400}.option-item__mark{margin-left:auto;font-size:.9rem;flex-shrink:0}.text-answer{margin-bottom:24px}.text-answer textarea{width:100%;min-height:110px;padding:14px 16px;font-family:"DM Sans",sans-serif;font-size:.9rem;color:#141414;background:#fff;border:1.5px solid #e4e4e0;border-radius:8px;resize:vertical;transition:border-color .18s cubic-bezier(0.25, 0.1, 0.25, 1);line-height:1.6}.text-answer textarea::placeholder{color:#a0a0a0}.text-answer textarea:focus{outline:none;border-color:#141414}.text-answer textarea:read-only{background:#f2f2f0;border-color:#e4e4e0;color:#5c5c5c;cursor:default;resize:none}.model-answer{padding:16px;border-radius:8px;background:#fefce8;border:1px solid #fde68a;margin-bottom:20px;animation:fadeIn .2s cubic-bezier(0.25, 0.1, 0.25, 1) both}.model-answer__label{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#92400e;margin-bottom:8px}.model-answer__text{font-size:.87rem;color:#141414;line-height:1.65}.self-eval{display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:10px;margin-bottom:20px;animation:fadeIn .2s cubic-bezier(0.25, 0.1, 0.25, 1) both}.self-eval__label{font-size:.82rem;color:#5c5c5c;font-weight:500;margin-right:4px}.feedback{display:flex;flex-direction:row;align-items:flex-start;justify-content:flex-start;gap:12px;padding:14px 16px;border-radius:8px;margin-bottom:20px;animation:fadeIn .2s cubic-bezier(0.25, 0.1, 0.25, 1) both}.feedback__icon{font-size:1rem;flex-shrink:0;margin-top:1px}.feedback__title{font-size:.82rem;font-weight:700;margin-bottom:3px}.feedback__text{font-size:.82rem;line-height:1.5;color:#5c5c5c}.feedback--correct{background:#f0faf4;border:1px solid #b5dfc8}.feedback--correct .feedback__title{color:#1a6b3c}.feedback--wrong{background:#fef2f2;border:1px solid #fecaca}.feedback--wrong .feedback__title{color:#b91c1c}.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 20px;font-family:"DM Sans",sans-serif;font-size:.85rem;font-weight:600;border-radius:8px;border:1.5px solid rgba(0,0,0,0);cursor:pointer;transition:all .18s cubic-bezier(0.25, 0.1, 0.25, 1)}.btn:focus-visible{outline:2px solid #141414;outline-offset:2px}.btn{letter-spacing:.01em;line-height:1}.btn:disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.btn--primary{background:#141414;color:#fff;border-color:#141414}.btn--primary:hover{background:#2a2a2a;border-color:#2a2a2a}.btn--secondary{background:#fff;color:#141414;border-color:#ccccca}.btn--secondary:hover{background:#f2f2f0;border-color:#a0a0a0}.btn--success{background:#f0faf4;color:#1a6b3c;border-color:#b5dfc8}.btn--success:hover{background:hsl(144,50%,93.0784313725%)}.btn--danger{background:#fef2f2;color:#b91c1c;border-color:#fecaca}.btn--danger:hover{background:hsl(0,85.7142857143%,94.2549019608%)}.btn--ghost{background:rgba(0,0,0,0);color:#5c5c5c;border-color:rgba(0,0,0,0);padding-left:8px;padding-right:8px}.btn--ghost:hover{background:#f2f2f0;color:#141414}.btn--next{background:#141414;color:#fff;border-color:#141414;margin-top:4px}.btn--next:hover{background:#2a2a2a}.btn--next::after{content:"→";font-size:1rem}.btn--sm{padding:7px 14px;font-size:.78rem}.btn-row{display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:10px;flex-wrap:wrap}.completion-screen{background:#fff;border:1px solid #e4e4e0;border-radius:12px;padding:40px 32px;text-align:center;animation:fadeIn .3s cubic-bezier(0.25, 0.1, 0.25, 1) both}.completion-screen__icon{font-size:2.5rem;margin-bottom:16px;display:block}.completion-screen__title{font-family:"Sora",sans-serif;font-size:1.4rem;font-weight:700;letter-spacing:-0.03em;color:#141414;margin:0 0 10px}.completion-screen__sub{font-size:.9rem;color:#5c5c5c;margin-bottom:28px;line-height:1.6}.completion-screen__score{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:24px;margin-bottom:28px;padding:20px;background:#f2f2f0;border-radius:8px}.completion-screen__score-item{text-align:center}.completion-screen__score-num{font-family:"Sora",sans-serif;font-size:1.8rem;font-weight:700;color:#141414;display:block;letter-spacing:-0.04em}.completion-screen__score-label{font-size:.72rem;color:#a0a0a0;text-transform:uppercase;letter-spacing:.06em;font-weight:600}.completion-screen__score-div{width:1px;height:36px;background:#e4e4e0}.completion-screen__error-msg{padding:14px 16px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#b91c1c;font-size:.85rem;font-weight:500;margin-bottom:20px;line-height:1.5}.review-header{display:flex;flex-direction:row;align-items:center;justify-content:space-between;margin-bottom:24px}.review-header__title{font-family:"Sora",sans-serif;font-size:1.5rem;font-weight:700;letter-spacing:-0.03em;color:#141414}.review-header__badge{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:99px;background:#f0faf4;color:#1a6b3c;border:1px solid #b5dfc8}.review-card{background:#fff;border:1px solid #e4e4e0;border-radius:12px;padding:24px;margin-bottom:12px;animation:fadeIn .15s cubic-bezier(0.25, 0.1, 0.25, 1) both}.review-card:nth-child(1){animation-delay:0s}.review-card:nth-child(2){animation-delay:0.04s}.review-card:nth-child(3){animation-delay:0.08s}.review-card:nth-child(4){animation-delay:0.12s}.review-card:nth-child(5){animation-delay:0.16s}.review-card:nth-child(6){animation-delay:0.2s}.review-card:nth-child(7){animation-delay:0.24s}.review-card:nth-child(8){animation-delay:0.28s}.review-card__top{display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}.review-card__q-index{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#a0a0a0}.review-card__status{font-size:.75rem;font-weight:600;padding:3px 10px;border-radius:99px;flex-shrink:0}.review-card__status.correct{background:#f0faf4;color:#1a6b3c;border:1px solid #b5dfc8}.review-card__status.wrong{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca}.review-card__question{font-size:.92rem;font-weight:600;color:#141414;line-height:1.5;margin-bottom:14px}.review-card__answer-row{display:flex;flex-direction:row;align-items:flex-start;justify-content:flex-start;gap:12px;flex-wrap:wrap}.review-card__answer-block{flex:1;min-width:200px;padding:10px 14px;border-radius:8px;font-size:.83rem;line-height:1.5}.review-card__answer-block.user-answer{background:#f2f2f0;border:1px solid #e4e4e0;color:#5c5c5c}.review-card__answer-block.correct-answer{background:#f0faf4;border:1px solid #b5dfc8;color:#1a6b3c}.review-card__answer-label{font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px;opacity:.6}.welcome-screen{background:#fff;border:1px solid #e4e4e0;border-radius:12px;padding:48px 40px;text-align:center}.welcome-screen__icon{font-size:2.5rem;margin-bottom:16px;display:block}.welcome-screen__title{font-family:"Sora",sans-serif;font-size:1.4rem;font-weight:700;letter-spacing:-0.03em;color:#141414;margin:0 0 10px}.welcome-screen__text{font-size:.9rem;color:#5c5c5c;line-height:1.6;margin-bottom:28px;max-width:420px;margin-left:auto;margin-right:auto}.hidden{display:none !important}.divider{height:1px;background:#e4e4e0;margin:20px 0}/*# sourceMappingURL=quiz.css.map */
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar__head">
+      <div class="sidebar__logo">Lernquiz</div>
+      <div class="sidebar__sub">Mediengestalter Print & Digital<br>Zwischenprüfung</div>
+    </div>
+    <nav class="sidebar__nav" id="topicNav">
+      
+    <button class="topic-nav-item is-active" data-topic="0" aria-label="1 · Wirtschaftlichkeit, Nachhaltigkeit & Digitalisierung">
+      <span class="topic-nav-item__number">01</span>
+      <span class="topic-nav-item__name">Wirtschaft & Digital</span>
+      <span class="topic-nav-item__status" data-status="0"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="3"/></svg></span>
+    </button>
+    <button class="topic-nav-item is-locked" data-topic="1" aria-label="2 · Arbeitsschritte planen & Arbeitsmittel auswählen">
+      <span class="topic-nav-item__number">02</span>
+      <span class="topic-nav-item__name">Arbeitsplanung</span>
+      <span class="topic-nav-item__status" data-status="1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+    </button>
+    <button class="topic-nav-item is-locked" data-topic="2" aria-label="3 · Projekte organisieren & Kunden beraten">
+      <span class="topic-nav-item__number">03</span>
+      <span class="topic-nav-item__name">Organisation & Beratung</span>
+      <span class="topic-nav-item__status" data-status="2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+    </button>
+    <button class="topic-nav-item is-locked" data-topic="3" aria-label="4 · Kommunikationskonzepte & KI-Tools">
+      <span class="topic-nav-item__number">04</span>
+      <span class="topic-nav-item__name">Konzepte & KI</span>
+      <span class="topic-nav-item__status" data-status="3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+    </button>
+    <button class="topic-nav-item is-locked" data-topic="4" aria-label="5 · Gestalterische Grundlagen">
+      <span class="topic-nav-item__number">05</span>
+      <span class="topic-nav-item__name">Gestaltgesetze</span>
+      <span class="topic-nav-item__status" data-status="4"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+    </button>
+    <button class="topic-nav-item is-locked" data-topic="5" aria-label="6 · Typografische Grundlagen">
+      <span class="topic-nav-item__number">06</span>
+      <span class="topic-nav-item__name">Typografie</span>
+      <span class="topic-nav-item__status" data-status="5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+    </button>
+    <button class="topic-nav-item is-locked" data-topic="6" aria-label="7 · Bild- und Grafikdaten & Kameratechnik">
+      <span class="topic-nav-item__number">07</span>
+      <span class="topic-nav-item__name">Bild, Grafik & Kamera</span>
+      <span class="topic-nav-item__status" data-status="6"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+    </button>
+    <button class="topic-nav-item is-locked" data-topic="7" aria-label="8 · Daten für Ausgabeprozesse aufbereiten">
+      <span class="topic-nav-item__number">08</span>
+      <span class="topic-nav-item__name">Ausgabeprozesse & Druck</span>
+      <span class="topic-nav-item__status" data-status="7"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+    </button>
+    <button class="topic-nav-item is-locked" data-topic="8" aria-label="9 · Farbmodelle & Farbkontraste">
+      <span class="topic-nav-item__number">09</span>
+      <span class="topic-nav-item__name">Farbe</span>
+      <span class="topic-nav-item__status" data-status="8"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+    </button>
+    <button class="topic-nav-item is-locked" data-topic="9" aria-label="10 · Berechnungsaufgaben">
+      <span class="topic-nav-item__number">010</span>
+      <span class="topic-nav-item__name">Berechnungen</span>
+      <span class="topic-nav-item__status" data-status="9"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+    </button>
+    </nav>
+    <div class="sidebar__footer">
+      <div class="overall-progress">
+        <div class="overall-progress__label">
+          <span>Gesamtfortschritt</span>
+          <span id="overallPct">0%</span>
+        </div>
+        <div class="overall-progress__bar">
+          <div class="overall-progress__fill" id="overallFill"></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="content" id="mainContent">
+    <div id="viewWelcome" class="welcome-screen">
+      <span class="welcome-screen__icon">📚</span>
+      <h1 class="welcome-screen__title">Bereit für die Prüfung?</h1>
+      <p class="welcome-screen__text">
+        Beantworte alle Fragen in den 9 Themengebieten.<br>
+        Du musst jedes Thema <strong>vollständig richtig</strong> abschließen,<br>
+        um zum nächsten Thema freizuschalten.
+      </p>
+      <button class="btn btn--primary" id="btnStart">Jetzt starten →</button>
+    </div>
+    <div id="viewQuiz" class="hidden"></div>
+  </main>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// QUIZ DATA
+// ═══════════════════════════════════════════════
+const TOPICS = [{"id":0,"title":"1 · Wirtschaftlichkeit, Nachhaltigkeit & Digitalisierung","shortTitle":"Wirtschaft & Digital","questions":[{"type":"checkbox","q":"Welche Punkte sind VORTEILE der Digitalisierung?","options":["Effizienzsteigerung durch Automatisierung","Hohe Investitionskosten","Remote Work möglich","Datenschutz-Risiken","Neue Geschäftsmodelle (E-Commerce)","Jobverlust durch Automatisierung"],"correct":[0,2,4],"explanation":"Vorteile: Effizienzsteigerung, Remote Work, neue Geschäftsmodelle, bessere Kundenkommunikation, Kostensenkung. Hohe Investitionskosten und Jobverlust sind Risiken."},{"type":"checkbox","q":"Welche Punkte sind HERAUSFORDERUNGEN / RISIKEN der Digitalisierung?","options":["Kostensenkung","Datenschutz & IT-Sicherheit (Cyberangriffe)","Remote Work","Qualifikationslücken → Mitarbeiter schulen","Effizienzsteigerung","Abhängigkeit von Technologie & Internet"],"correct":[1,3,5],"explanation":"Risiken: Datenschutz/IT-Sicherheit, Qualifikationslücken, Abhängigkeit von Technologie, hohe Investitionskosten, Jobverlust."},{"type":"radio","q":"Was beschreibt die 20-20-20-Regel am Bildschirmarbeitsplatz?","options":["Alle 20 Stunden 20 Minuten Pause","Alle 20 Minuten auf ein ca. 6 m entferntes Objekt schauen für 20 Sekunden","Monitorabstand 20 cm, Neigung 20 Grad","Alle 20 Minuten aufstehen"],"correct":[1],"explanation":"20-20-20-Regel: Alle 20 Min auf ca. 6 m entferntes Objekt schauen für 20 Sek. Entlastet die Augenmuskulatur."},{"type":"radio","q":"Was regelt die BildscharbV?","options":["Maximale Bildschirmarbeitszeit","Mindestanforderungen an Ergonomie und Beleuchtung am Bildschirmarbeitsplatz","Pflicht zur Prüfung elektrischer Geräte","Bildschirmgröße in Abhängigkeit vom Raum"],"correct":[1],"explanation":"BildscharbV: Mindestanforderungen an Ergonomie und Beleuchtung am Bildschirmarbeitsplatz."},{"type":"radio","q":"Wofür steht DGUV V3?","options":["Deutsche Grundsätze Umweltschutz","Vorschrift zur regelmäßigen Prüfung elektrischer Betriebsmittel","Verordnung zur Datensicherheit","Digitale Grundlagen Unternehmensverordnung"],"correct":[1],"explanation":"DGUV V3: Vorschrift der Deutschen Gesetzlichen Unfallversicherung für regelmäßige Prüfung elektrischer Betriebsmittel."},{"type":"checkbox","q":"Welche Maßnahmen gehören zur Nachhaltigkeit im Bereich Papier & Druck?","options":["FSC- oder PEFC-zertifiziertes Papier","Recyclingpapier","Ausschließlich Hochglanzpapier","Vegetabilische Druckfarben","Möglichst viele Sonderfarben","Ökostrom für Druckmaschinen"],"correct":[0,1,3],"explanation":"Nachhaltigkeit Papier & Druck: Recyclingpapier, FSC-/PEFC-Zertifizierung, vegetabilische Druckfarben."},{"type":"radio","q":"Was ist eine nachhaltige Maßnahme bei der Distribution?","options":["Hochglanzpapier nutzen","Printmailings durch digitale PDFs ersetzen und regionale Druckereien bevorzugen","Mehr Sonderfarben einsetzen","Größere Auflagen drucken"],"correct":[1],"explanation":"Nachhaltige Distribution: Print durch Digital ersetzen (PDF statt Printmailing) und regionale Druckereien nutzen."},{"type":"text","q":"Nenne drei konkrete ergonomische Maßnahmen für einen gesunden Bildschirmarbeitsplatz.","modelAnswer":"Monitor auf Augenhöhe (Oberkante), Abstand 50-70 cm, aufrechte Sitzposition, regelmäßige Pausen (20-20-20-Regel), indirekte Beleuchtung ohne Spiegelung, ergonomischer Stuhl.","keywords":["augenhöhe","abstand","sitzposition","pause","beleuchtung"]},{"type":"radio","q":"Was bedeutet FSC- oder PEFC-Zertifizierung bei Papier?","options":["Papier ist besonders glatt","Papier stammt aus nachhaltig bewirtschafteten Wäldern","Papier ist recycelt","Papier erfüllt ISO-Druckstandard"],"correct":[1],"explanation":"FSC und PEFC zertifizieren nachhaltige Forstwirtschaft – Holz aus verantwortungsvollem Anbau."},{"type":"radio","q":"Welcher Monitorabstand ist ergonomisch korrekt?","options":["20-30 cm","50-70 cm","80-100 cm","Mehr als 1 Meter"],"correct":[1],"explanation":"Empfohlener Monitorabstand: 50-70 cm. Oberkante des Monitors auf Augenhöhe."},{"type":"text","q":"Erkläre je einen Vorteil und ein Risiko der Digitalisierung.","modelAnswer":"Vorteil: Effizienzsteigerung durch Automatisierung spart Zeit und Kosten. Oder: Remote Work ermöglicht ortsunabhängiges Arbeiten. Risiko: Datenschutz & IT-Sicherheit - digitale Systeme sind anfällig für Cyberangriffe. Oder: Abhängigkeit von Technologie.","keywords":["effizienz","automatisierung","remote","datenschutz","sicherheit","abhängigkeit"]},{"type":"radio","q":"Was ist ein Risiko der Digitalisierung im Bereich Personal?","options":["Zu viele qualifizierte Bewerber","Qualifikationslücken - Mitarbeiter müssen geschult werden","Zu hohe Löhne","Mitarbeiter arbeiten zu viel"],"correct":[1],"explanation":"Qualifikationslücken: Neue Technologien erfordern neue Kompetenzen die erst durch Schulung aufgebaut werden müssen."},{"type":"checkbox","q":"Welche Maßnahmen sind nachhaltig im Bereich Energie?","options":["Ökostrom für Betrieb nutzen","Alte ineffiziente Hardware weiter betreiben","Energieeffiziente Geräte einsetzen","Grüne Rechenzentren für Cloud wählen","Möglichst viele Bildschirme gleichzeitig einschalten"],"correct":[0,2,3],"explanation":"Nachhaltigkeit Energie: Ökostrom, energieeffiziente Geräte, grüne Rechenzentren."},{"type":"radio","q":"Was ist laut DSGVO ein personenbezogenes Datum?","options":["Allgemeine Statistiken","Jede Information die eine Person identifizierbar macht (Name, E-Mail, Foto, IP-Adresse)","Anonymisierte Verkaufszahlen","Wetterdaten"],"correct":[1],"explanation":"Personenbezogene Daten: alles womit eine Person identifiziert werden kann - Name, Adresse, Foto, E-Mail, IP-Adresse, Standort."}]},{"id":1,"title":"2 · Arbeitsschritte planen & Arbeitsmittel auswählen","shortTitle":"Arbeitsplanung","questions":[{"type":"radio","q":"Was ist der Unterschied zwischen Briefing und Re-Briefing?","options":["Briefing kommt vom Kunden, Re-Briefing ist intern","Beim Briefing erhält die Agentur die Aufgabe; beim Re-Briefing spiegelt sie den Auftrag zurück um Missverständnisse zu klären","Re-Briefing findet nach der Reinzeichnung statt","Beide bedeuten dasselbe"],"correct":[1],"explanation":"Briefing: Kunde erläutert Aufgabe, Ziele, Budget. Re-Briefing: Agentur spiegelt das Gehörte zurück - Missverständnisse aufdecken bevor Arbeit beginnt."},{"type":"radio","q":"In welchem Schritt erfolgt die druckfertige Umsetzung nach Freigabe?","options":["Briefing","Präsentation","Reinzeichnung","Abnahme"],"correct":[2],"explanation":"Reinzeichnung (Schritt 5): Druckfertige, technisch saubere Umsetzung des freigegebenen Entwurfs."},{"type":"checkbox","q":"Was muss auf einer Rechnung stehen?","options":["Absender und Empfänger","Verwendete Software","Datum","Fortlaufende Rechnungsnummer","Leistungsbeschreibung","Netto, MwSt. und Bruttobetrag","Zahlungsziel"],"correct":[0,2,3,4,5,6],"explanation":"Pflichtangaben Rechnung: Absender, Empfänger, Datum, fortlaufende Nummer, Leistungsbeschreibung, Netto/MwSt./Brutto, Zahlungsziel, Bankverbindung."},{"type":"radio","q":"Welche Betriebsform nutzt Scrum und Kanban?","options":["Druckerei","Werbeagentur","Digitalagentur","Verlag"],"correct":[2],"explanation":"Digitalagentur: Web, Apps, Social Media, UX/UI. Nutzt agile Methoden wie Scrum und Kanban."},{"type":"radio","q":"Was ist der Schritt Abnahme im Workflow?","options":["Interne Qualitätskontrolle","Schriftliche Freigabe durch den Kunden - dient als Rechtsgrundlage","Abholen der Druckprodukte","Übergabe der Daten an Druckerei"],"correct":[1],"explanation":"Abnahme (Schritt 6): Schriftliche Freigabe durch den Kunden. Wichtig als Rechtsgrundlage."},{"type":"radio","q":"Was macht ein Verlag?","options":["Erstellt Werbemittel","Druckt Produkte","Erstellt, lektoriert und vertreibt Bücher, Zeitschriften und Online-Portale","Entwickelt Websites"],"correct":[2],"explanation":"Verlag: Erstellt, lektoriert und vertreibt redaktionelle Inhalte - Bücher, Zeitschriften, Online-Portale."},{"type":"text","q":"Erkläre den Workflow-Schritt Konzept/Entwurf.","modelAnswer":"Im Konzept/Entwurf werden erste Ideen entwickelt und visualisiert: Scribbles (grobe Handskizzen), Moodboards (Inspirationssammlungen), erste Layouts und Gestaltungskonzepte. Ziel: verschiedene kreative Ansätze entwickeln.","keywords":["scribble","moodboard","layout","ideen","skizze","entwurf"]},{"type":"radio","q":"Was ist der Unterschied zwischen Angebot und Auftrag?","options":["Angebot ist verbindlicher","Angebot: Leistungsumfang und Preise. Auftrag: Kunde nimmt an - Vertrag kommt zustande.","Auftrag kommt vor Angebot","Beide bedeuten dasselbe"],"correct":[1],"explanation":"Angebot: Leistungsumfang, Preise, Gültigkeitsdauer. Auftrag: Kundenannahme = Vertrag kommt zustande."},{"type":"checkbox","q":"Was enthält ein vollständiges Briefing?","options":["Aufgabenstellung und Ziele","Fertige Reinzeichnung","Zielgruppe","Budget und Termine","Abgeschlossene Rechnung","Wettbewerbsanalyse"],"correct":[0,2,3,5],"explanation":"Briefing: Aufgabe, Ziele, Zielgruppe, Budget, Termine, Wettbewerb. Reinzeichnung und Rechnung kommen viel später."},{"type":"radio","q":"Welche Betriebsform ist auf Akzidenzdruck spezialisiert?","options":["Werbeagentur","Digitalagentur","Druckerei","Verlag"],"correct":[2],"explanation":"Druckerei: Akzidenzdruck (Flyer, Broschüren, Visitenkarten), Zeitungsdruck, Verpackungsdruck."},{"type":"text","q":"Was ist eine Inhouse-Mediengestaltung und was sind ihre Vorteile?","modelAnswer":"Eine Inhouse-Abteilung ist eine interne Mediengestaltungseinheit im Unternehmen (z.B. Marketingabt. eines Konzerns). Vorteile: Kurze Kommunikationswege, tiefes Markenwissen, schnellere Reaktionszeiten, keine externen Agenturhonorare.","keywords":["intern","unternehmen","abteilung","kommunikation","marke","kosten"]},{"type":"radio","q":"Wann gilt ein Angebot als Auftrag/Vertrag?","options":["Sobald der Designer beginnt","Wenn der Kunde das Angebot annimmt","Nach Übergabe der Druckdaten","Erst mit Bezahlung"],"correct":[1],"explanation":"Vertrag kommt zustande wenn der Kunde das Angebot annimmt."},{"type":"checkbox","q":"Welche sind die letzten drei Schritte im Workflow?","options":["Abnahme","Briefing","Produktion","Abrechnung","Entwurf"],"correct":[0,2,3],"explanation":"Korrekte Reihenfolge endet: Reinzeichnung → Abnahme → Produktion → Abrechnung."},{"type":"radio","q":"Was ist der Unterschied zwischen Werbeagentur und Digitalagentur?","options":["Keine Unterschiede","Werbeagentur: Print/Film/Digital, Beratung-Kreation-Produktion. Digitalagentur: Web/Apps/UX, agile Methoden.","Digitalagentur macht nur Apps","Werbeagentur macht nur Print"],"correct":[1],"explanation":"Werbeagentur: breites Spektrum Werbemittel. Digitalagentur: Fokus auf Web, Apps, Social Media, UX/UI, agile Methoden."}]},{"id":2,"title":"3 · Projekte organisieren & Kunden beraten","shortTitle":"Organisation & Beratung","questions":[{"type":"radio","q":"Was ist der Zweck eines De-Briefings?","options":["Erste Aufgabenübergabe","Abschlussbesprechung: Lessons Learned festhalten und Prozesse verbessern","Fortschrittskontrolle","Prüfung des Markenauftritts"],"correct":[1],"explanation":"De-Briefing: Abschlussbesprechung nach Projektende. Lessons Learned festhalten, damit Prozesse beim nächsten Projekt besser laufen."},{"type":"radio","q":"Was ist ein Kick-off-Meeting?","options":["Abschlussfeier","Startbesprechung: Rollen, Zeitplan und Ziele mit allen Beteiligten definieren","Markenprüfung","Budget-Meeting"],"correct":[1],"explanation":"Kick-off: Startbesprechung zu Projektbeginn. Rollen, Zeitplan, Ziele und Verantwortlichkeiten werden definiert."},{"type":"radio","q":"Was entsteht automatisch mit der Erschaffung eines Werkes?","options":["Nutzungsrecht für jeden","Das Urheberrecht - ohne Anmeldung, automatisch beim Schöpfer","Eine CC-Lizenz","Ein Patent"],"correct":[1],"explanation":"Urheberrecht entsteht automatisch mit der Schöpfung. Keine Anmeldung nötig. Schutz 70 Jahre nach Tod des Urhebers."},{"type":"radio","q":"Was ist der Unterschied zwischen einfachem und ausschließlichem Nutzungsrecht?","options":["Es gibt keinen Unterschied","Einfach = mehrere Nutzer erlaubt. Ausschließlich = nur ein Nutzer, sogar Urheber braucht Erlaubnis.","Ausschließlich ist günstiger","Einfach gilt nur für Print"],"correct":[1],"explanation":"Einfaches NR: mehrfach vergebar. Ausschließliches NR: exklusiv, nur ein Lizenznehmer - selbst der Urheber darf es dann nicht mehr ohne Erlaubnis nutzen."},{"type":"checkbox","q":"Was bedeuten die CC-Kürzel BY, NC, SA und ND?","options":["BY = Namensnennung erforderlich","NC = nicht kommerziell","SA = beliebig verändern erlaubt","SA = gleiche Lizenz weitergeben","ND = keine Bearbeitung erlaubt","BY = nicht bearbeitbar"],"correct":[0,1,3,4],"explanation":"CC: BY=Namensnennung, NC=Non Commercial, SA=ShareAlike/gleiche Lizenz, ND=No Derivatives/keine Bearbeitung."},{"type":"radio","q":"Warum darf man NC-Bilder NICHT für Kundenprojekte nutzen?","options":["NC-Bilder haben schlechte Qualität","Kundenprojekte sind kommerziell - NC bedeutet ausschließlich nicht-kommerziell","Die Dateigröße ist zu groß","NC-Bilder darf man immer verwenden"],"correct":[1],"explanation":"NC = Non Commercial = kein Geld damit verdienen. Kundenprojekte sind kommerziell → NC-Bilder verboten!"},{"type":"radio","q":"Was darf man mit einem ND-Bild NICHT machen?","options":["Es anschauen","Es teilen","Es zuschneiden, bearbeiten oder in ein Design einbauen","Es ausdrucken"],"correct":[2],"explanation":"ND = No Derivatives = keine Bearbeitung. Nicht verändern - auch kein Zuschneiden oder in Layout einbauen!"},{"type":"radio","q":"Was ist CC0?","options":["Eingeschränkteste CC-Lizenz","Vollständiger Rechteverzicht - keine Namensnennung nötig, alles erlaubt (z.B. Unsplash, Pexels)","Lizenz für 0-Budget-Projekte","CC für kommerzielle Nutzung"],"correct":[1],"explanation":"CC0: Urheber verzichtet auf alle Rechte. Komplett frei, keine Namensnennung nötig, auch kommerziell. Quasi Public Domain."},{"type":"radio","q":"Wie hoch können DSGVO-Bußgelder sein?","options":["Bis 5.000 €","Bis 20 Mio. € oder 4% des weltweiten Jahresumsatzes","Bis 100.000 €","Bis 1 Mio. €"],"correct":[1],"explanation":"DSGVO-Bußgelder: bis 20 Mio. € ODER 4% des weltweiten Jahresumsatzes - je was höher ist."},{"type":"text","q":"Erkläre die DSGVO-Grundsätze Datensparsamkeit und Zweckbindung.","modelAnswer":"Datensparsamkeit: Nur so viele Daten erheben wie unbedingt notwendig - nicht auf Vorrat. Zweckbindung: Daten nur für den Zweck nutzen für den sie erhoben wurden. Andere Nutzung ohne erneute Einwilligung verboten.","keywords":["datensparsamkeit","zweckbindung","notwendig","erhoben","einwilligung"]},{"type":"radio","q":"Was ist laut §43 UrhG bei Angestellten geregelt?","options":["Angestellte haben kein Urheberrecht","Angestellte bleiben Urheber, aber wirtschaftliche Nutzungsrechte gehen automatisch an Arbeitgeber über","Angestellte besitzen alle Rechte","Arbeitgeber ist immer Urheber"],"correct":[1],"explanation":"§43 UrhG: Als Angestellter bleibst du Schöpfer/Urheber. Die wirtschaftlichen Nutzungsrechte gehen aber automatisch an den Arbeitgeber über."},{"type":"radio","q":"Welche CC-Lizenz ist für kommerzielle Kundenprojekte geeignet?","options":["CC BY-NC","CC BY-NC-ND","CC BY (Namensnennung, alles erlaubt)","CC BY-NC-SA"],"correct":[2],"explanation":"Für kommerzielle Projekte: CC BY (nur Namensnennung). Alle NC-Varianten sind für Kundenprojekte verboten."},{"type":"checkbox","q":"Welche Aspekte beim CC-Bildeinsatz prüfen?","options":["NC dabei? → Nicht für Kundenprojekte!","ND dabei? → Nicht bearbeiten!","BY dabei? → Urheber nennen!","Ob das Bild schön ist","SA dabei? → Gleiche Lizenz weitergeben!"],"correct":[0,1,2,4],"explanation":"CC-Prüfung: NC=kein kommerzieller Einsatz, ND=keine Bearbeitung, BY=Urheber nennen, SA=gleiche Lizenz für Bearbeitungen."},{"type":"radio","q":"Was ist ein Brand Review Meeting?","options":["Logo-Präsentation","Regelmäßige Prüfung des Markenauftritts auf Konsistenz mit dem Corporate Design","Abschlussbesprechung","Budget-Meeting"],"correct":[1],"explanation":"Brand Review Meeting: Regelmäßige Prüfung ob der Markenauftritt einheitlich und im Einklang mit dem Corporate Design ist."}]},{"id":3,"title":"4 · Kommunikationskonzepte & KI-Tools","shortTitle":"Konzepte & KI","questions":[{"type":"radio","q":"Was ist eine Persona?","options":["Ein realer Kunde","Eine fiktive Musterperson die einen typischen Nutzer repräsentiert","Der Projektverantwortliche","Eine Marktforschungsstudie"],"correct":[1],"explanation":"Persona: Fiktive realistische Musterperson. Enthält: Name, Foto, Alter, Beruf, Ziele, Frustrationen, Mediennutzung."},{"type":"radio","q":"Was ist die Grundregel beim Brainstorming?","options":["Nur beste Ideen notieren","Ideen sofort bewerten","Alle Ideen frei und unbewertet sammeln - keine Kritik!","Max 5 Ideen pro Person"],"correct":[2],"explanation":"Brainstorming: Alle Ideen ohne Bewertung. Quantität vor Qualität! Erst danach clustern und bewerten."},{"type":"radio","q":"Was beschreibt die 635-Methode?","options":["6 Schritte, 3 Ziele, 5 Personen","6 Personen schreiben je 3 Ideen, Blatt wird 5 Runden weitergegeben und ausgebaut","6 Bilder, 3 Farben, 5 Schriften","Zeitplanmethode"],"correct":[1],"explanation":"635-Methode (Brainwriting): 6 Personen x 3 Ideen x 5 Runden. Blatt weitergeben, Ideen aufgreifen und ausbauen."},{"type":"checkbox","q":"Welche Dimensionen hat eine Zielgruppenanalyse?","options":["Demografisch (Alter, Geschlecht, Einkommen)","Technisch (Geräte, Browser)","Psychografisch (Werte, Interessen)","Behavioristisch (Kaufverhalten)","Geografisch","Monetär (Vermögen)"],"correct":[0,2,3],"explanation":"Zielgruppenanalyse: Demografisch, Psychografisch, Behavioristisch."},{"type":"checkbox","q":"Was muss beim Einsatz von KI-Tools beachtet werden?","options":["Keine Kundendaten eingeben (DSGVO)","KI-Output immer 1:1 übernehmen","KI-Halluzinationen - Faktencheck!","Urheberrecht prüfen","KI ist 100% zuverlässig","KI-Inhalt ggf. kennzeichnen"],"correct":[0,2,3,5],"explanation":"KI: Kein DSGVO-Verstoß, Faktencheck, Urheberrecht, Output überarbeiten, ggf. kennzeichnen."},{"type":"radio","q":"Was bedeutet Halluzination bei KI-Tools?","options":["KI macht kreative Bilder","KI gibt falsche Infos plausibel klingend aus ohne es zu erkennen","Visueller Fehler im Output","KI versteht Prompt nicht"],"correct":[1],"explanation":"KI-Halluzinationen: KI erfindet Fakten oder Quellen die nicht existieren und präsentiert sie überzeugend. Immer Faktencheck!"},{"type":"radio","q":"Was ist ein Moodboard?","options":["Stimmungsprotokoll","Visuelle Inspirationssammlung aus Bildern, Farben, Typografie und Materialien","Grobe Handskizze","Digitales Wireframe"],"correct":[1],"explanation":"Moodboard: Visuelle Inspirationssammlung. Gemeinsame Basis zwischen Designer und Kunde vor dem ersten Entwurf."},{"type":"text","q":"Erkläre was eine Mindmap ist und wie sie aufgebaut wird.","modelAnswer":"Mindmap: visuelles Werkzeug zur Ideensammlung. Hauptthema in der Mitte. Von dort Äste für Oberthemen. Von Ästen Zweige für Details. Hilft Zusammenhänge zu erkennen.","keywords":["hauptthema","mitte","äste","zweige","oberthemen","struktur"]},{"type":"radio","q":"Warum KI-Output nie 1:1 übernehmen?","options":["KI schreibt immer schlechte Texte","Output kann Fehler enthalten, urheberrechtlich problematisch sein und nicht zur Marke passen","Es ist zu teuer","Es ist verboten"],"correct":[1],"explanation":"KI-Output: Halluzinationen möglich, Urheberrecht unklar, passt nicht zur Markensprache. Immer überarbeiten, prüfen, anpassen."},{"type":"radio","q":"Was ist ein Scribble?","options":["Fertige Reinzeichnung","Grobe schnelle Handskizze zur Ideenvisualisierung - nicht perfekt!","Digitales Wireframe","Druckdateiformat"],"correct":[1],"explanation":"Scribble: Grobe Handskizze. Schnelle Ideenvisualisierung ohne Perfektionsanspruch. Gut für erste Feedback-Runden."},{"type":"radio","q":"Unterschied Brainstorming vs 635-Methode?","options":["Brainstorming digital, 635 analog","Brainstorming: Ideen laut sammeln. 635: schriftlich, Blatt weitergeben.","Brainstorming mehr Runden","Kein Unterschied"],"correct":[1],"explanation":"Brainstorming: mündlich, spontan. 635: schriftlich, systematisch, Blatt weitergeben. Vorteil 635: alle beteiligen sich gleichmäßig."},{"type":"text","q":"Warum keine Kundendaten in KI-Tools eingeben?","modelAnswer":"DSGVO: Kundendaten sind personenbezogen. Eingabe in externe KI-Dienste verstößt gegen Datenschutz - Daten könnten für Training des Modells verwendet werden und sind nicht mehr unter Kontrolle.","keywords":["dsgvo","personenbezogen","datenschutz","training","kontrolle","extern"]},{"type":"checkbox","q":"Was enthält eine vollständige Persona?","options":["Name und Foto (Stockbild)","Echte Kundendaten","Alter und Beruf","Ziele und Frustrationen","Bevorzugte Mediennutzung","Genaue Wohnadresse"],"correct":[0,2,3,4],"explanation":"Persona: Name, Stockfoto, Alter, Beruf, Ziele, Frustrationen, Mediennutzung. Keine echten persönlichen Daten!"}]},{"id":4,"title":"5 · Gestalterische Grundlagen","shortTitle":"Gestaltgesetze","questions":[{"type":"radio","q":"Gestaltgesetz der Nähe:","options":["Gleiche Farben werden als zusammengehörig wahrgenommen","Räumlich nahe Elemente werden als Gruppe wahrgenommen","Auge folgt Linien","Unvollständige Formen werden ergänzt"],"correct":[1],"explanation":"Nähe: Nahe Elemente = zusammengehörig. Abstände gezielt einsetzen um Gruppen zu bilden."},{"type":"radio","q":"Gestaltgesetz der Geschlossenheit:","options":["Gehirn bevorzugt einfachste Interpretation","Unvollständige Formen werden vom Gehirn zu vollständigen ergänzt","Gleiche Farben wirken zusammen","Symmetrische Elemente wirken stabil"],"correct":[1],"explanation":"Geschlossenheit: Gehirn ergänzt fehlende Teile zu bekannten Formen. Beispiele: FedEx-Pfeil, WWF-Panda-Logo."},{"type":"radio","q":"Was beschreibt das Figur-Grund-Prinzip?","options":["Figuren stehen immer vor weißem Hintergrund","Gehirn trennt automatisch Vordergrund von Hintergrund - kann mehrdeutig sein (Kippbilder)","Größere Elemente = Figur","Hintergrund ist unwichtig"],"correct":[1],"explanation":"Figur/Grund: Gehirn trennt automatisch Vorder- und Hintergrund. Kann mehrdeutig sein (Kippbilder wie Vase/Gesicht)."},{"type":"radio","q":"Das Gestaltgesetz der Prägnanz besagt:","options":["Symmetrie ist immer besser","Gehirn bevorzugt die einfachste, regelmäßigste Interpretation","Bunte Elemente zuerst wahrgenommen","Größere Elemente sind prägnanter"],"correct":[1],"explanation":"Prägnanz: Gehirn nimmt die einfachste Interpretation wahr. Keep it simple hat hier seine wissenschaftliche Grundlage."},{"type":"radio","q":"Gestaltgesetz Gemeinsames Schicksal:","options":["Fläche bildende Elemente gehören zusammen","Elemente die sich in dieselbe Richtung bewegen werden als Gruppe wahrgenommen","Gleichartige Elemente = Gruppe","Verbundene Elemente = Einheit"],"correct":[1],"explanation":"Gemeinsames Schicksal: Gleiche Bewegungsrichtung = Gruppe. Relevant für Animationen und Scrolleffekte."},{"type":"text","q":"Erkläre das Gestaltgesetz der Ähnlichkeit mit Praxisbeispiel.","modelAnswer":"Ähnlichkeit: Elemente mit gleicher Farbe, Form, Größe wirken zusammengehörig. Beispiel: Alle Buttons einer Webseite haben dieselbe Farbe → werden als klickbar erkannt. Einheitliche Icons wirken als Set zusammengehörig.","keywords":["ähnlichkeit","gleiche","farbe","form","zusammengehörig","button"]},{"type":"checkbox","q":"Welche sind echte Gestaltgesetze?","options":["Nähe","Auflösung","Ähnlichkeit","Kontinuität","Kerning","Geschlossenheit"],"correct":[0,2,3,5],"explanation":"Gestaltgesetze: Nähe, Ähnlichkeit, Kontinuität, Geschlossenheit, Figur/Grund, Prägnanz, Symmetrie, Gemeinsames Schicksal, Verbundenheit, Erfahrung."},{"type":"radio","q":"Gestaltgesetz der Verbundenheit:","options":["Ähnliche Elemente zusammengehörig","Durch Linien oder Flächen verbundene Elemente werden als zusammengehörig wahrgenommen","Bewegende Elemente zusammen","Bekannte Icons erkannt"],"correct":[1],"explanation":"Verbundenheit: Physisch verbundene Elemente (Linien, Rahmen) werden stärker als zusammengehörig wahrgenommen."},{"type":"radio","q":"Gestaltgesetz der Erfahrung:","options":["Designer mit Erfahrung = besseres Ergebnis","Bekannte Muster und Icons werden schneller erkannt und brauchen keine Erklärung","Erfahrene Nutzer verstehen alles","Designs auf historischen Vorbildern"],"correct":[1],"explanation":"Erfahrung: Bekannte Muster sofort erkannt. Deshalb Standard-Icons nutzen (Warenkorb, Lupe)."},{"type":"radio","q":"Gestaltgesetz der Kontinuität:","options":["Gleiche Bewegungsrichtung = Gruppe","Das Auge folgt Linien über Unterbrechungen - Blicklenkung durch Achsen","Verbundene Elemente zusammen","Bekannte Muster erkannt"],"correct":[1],"explanation":"Kontinuität: Auge folgt Linien über Unterbrechungen. Im Design: Blicklenkung durch Achsen und Führungslinien."},{"type":"text","q":"Wie setzt du das Gestaltgesetz der Nähe im Layout ein? Beispiel.","modelAnswer":"Beispiel Formular: Label und Eingabefeld eng zusammenstellen (gehören zusammen). Größeren Abstand zwischen verschiedenen Feldern. Produktkarte: Bild, Titel, Preis und Button dicht zusammen wirken als Einheit. Weißraum zur nächsten Karte trennt sie.","keywords":["abstand","zusammen","gruppe","label","layout","nähe","weißraum"]},{"type":"radio","q":"Gestaltgesetz der Symmetrie:","options":["Symmetrische Layouts immer besser","Symmetrische Elemente wirken zusammengehörig und stabil","Nur symmetrische Logos professionell","Symmetrie = identische Seiten"],"correct":[1],"explanation":"Symmetrie: Symmetrische Elemente werden als zusammengehörig und stabil wahrgenommen."},{"type":"checkbox","q":"Korrekte Aussagen zu Gestaltgesetzen:","options":["Nähe und Ähnlichkeit helfen Gruppen zu bilden","Gelten nur für Print","Figur-Grund kann zu Mehrdeutigkeit führen","Prägnanz: einfachste Interpretation bevorzugt","Wurden von Adobe entwickelt"],"correct":[0,2,3],"explanation":"Gestaltgesetze aus Gestaltpsychologie. Gelten für Print und Digital. Nähe/Ähnlichkeit = Gruppierung, Figur/Grund = kann mehrdeutig sein."}]},{"id":5,"title":"6 · Typografische Grundlagen","shortTitle":"Typografie","questions":[{"type":"radio","q":"Merkmal einer Antiqua / Serifenschrift?","options":["Keine Serifen","Dicke eckige Serifen wie Rockwell","Kleine Füßchen (Serifen) an Buchstabenenden - klassisch, vertrauenswürdig","Imitiert Handschrift"],"correct":[2],"explanation":"Antiqua/Serif: Serifen = kleine Füßchen. Klassisch, vertrauenswürdig. Fließtext im Druck. Garamond, Times, Bodoni."},{"type":"radio","q":"Unterschied Kerning vs. Tracking?","options":["Beide dasselbe","Kerning: individueller Abstand zwischen 2 Buchstabenpaaren. Tracking: gleichmäßiger Abstand aller Buchstaben.","Kerning für Fließtext, Tracking für Überschriften","Tracking = nur Wortabstände"],"correct":[1],"explanation":"Kerning (Mikro): 2 Buchstabenpaare (AV, WA). Tracking/Laufweite (Mikro): gleichmäßiger Zeichenabstand aller Buchstaben."},{"type":"radio","q":"Was ist der Durchschuss (Leading)?","options":["Horizontaler Buchstabenabstand","Abstand von Grundlinie zu Grundlinie. Faustformel: 120% der Schriftgröße.","Strichstärke","Absatzabstand"],"correct":[1],"explanation":"Durchschuss: Abstand von Grundlinie zu Grundlinie. 120% der Schriftgröße. Zu wenig = gedrängt, zu viel = zerrissen."},{"type":"radio","q":"Welche Satzart für Fließtext auf Screen?","options":["Blocksatz","Zentriert","Flattersatz (linksbündig) - gleichmäßige Wortabstände","Rechtsbündig"],"correct":[2],"explanation":"Flattersatz auf Screen: links bündig, gleichmäßige Wortabstände (keine Löcher wie beim Blocksatz). Für Web und Mobile."},{"type":"checkbox","q":"Was gehört zur Mikrotypografie?","options":["Kerning","Satzspiegel und Seitenraster","Ligaturen (fi, fl, ff)","Halbgeviertstrich als Gedankenstrich (-)","Spaltenaufteilung","Kapitälchen"],"correct":[0,2,3,5],"explanation":"Mikrotypografie: Kerning, Ligaturen, korrekte Sonderzeichen, Kapitälchen. Satzspiegel und Spalten = Makrotypografie."},{"type":"radio","q":"Optimale Zeilenlänge?","options":["20-30 Zeichen","40-70 Zeichen (ca. 7-12 Wörter)","80-100 Zeichen","So breit wie möglich"],"correct":[1],"explanation":"Optimale Zeilenlänge: 40-70 Zeichen. Zu kurz = zu viele Umbrüche. Zu lang = Auge verliert Zeile."},{"type":"radio","q":"Mindest-Schriftgröße für Fließtext auf Mobile?","options":["10 px","12 px","16 px","20 px"],"correct":[2],"explanation":"Mindestens 16 px für Fließtext auf Mobile. Kleinere Schrift erfordert Zoomen."},{"type":"text","q":"Erkläre Makro- und Mikrotypografie mit je einem Beispiel.","modelAnswer":"Mikrotypografie: Details auf Buchstaben-/Wortebene. Beispiel: Kerning, Ligaturen, korrekte Anführungszeichen. Makrotypografie: Struktur und Raumaufteilung. Beispiel: Satzspiegel, Gestaltungsraster, Spaltenaufteilung.","keywords":["mikro","makro","kerning","ligaturen","satzspiegel","raster","spalten"]},{"type":"radio","q":"Was ist der Satzspiegel?","options":["Spiegel zur Druckkontrolle","Bedruckter Bereich der Seite - definiert durch Bundsteg, Außensteg, Kopfsteg, Fußsteg","Verhältnis Schriftgröße zu Zeilenabstand","Maximale Zeilenanzahl"],"correct":[1],"explanation":"Satzspiegel (Makro): bedruckter Bereich. Stege: Bund, Außen, Kopf, Fuß im Verhältnis 1:1,5:1:2."},{"type":"radio","q":"Warum Blocksatz auf kleinen Screens problematisch?","options":["Kann nicht digital gerendert werden","Kurze Zeilen führen zu extremen Wortabständen, Löchern und Flüssen","Browser unterstützen es nicht","Nur unter 16 px problematisch"],"correct":[1],"explanation":"Blocksatz auf Mobile: kurze Zeilen = extreme Wortabstände, Löcher, Flüsse. Flattersatz besser."},{"type":"radio","q":"Was sind Ligaturen?","options":["Verbindungslinien zwischen Wörtern","Zwei Buchstaben zu einem Zeichen verbunden (fi, fl, ff)","Kursive Formen","Satzzeichen"],"correct":[1],"explanation":"Ligaturen (Mikro): Zwei Buchstaben zu einem Zeichen verbunden. fi, fl, ff. Verbessern optische Qualität."},{"type":"checkbox","q":"Korrekte Aussagen zur Schriftgröße?","options":["1 pt = 0,353 mm","Fließtext Druck: min. 9-10 pt","Fließtext Screen: min. 16 px","Schriftgröße in cm gemessen","Überschriften immer 72 pt"],"correct":[0,1,2],"explanation":"1 pt = 0,353 mm. Druck: min. 9-10 pt. Screen: min. 16 px."},{"type":"text","q":"Erkläre die Problematik zu langer Zeilen auf Mobile und die Lösung.","modelAnswer":"Zu lange Zeilen auf Mobile: Auge verliert beim Zeilenwechsel die nächste Zeile. Lösung: Max. 70 Zeichen auf Mobile, einspaltiges Layout. In CSS durch max-width und responsive Spaltenbreiten.","keywords":["zeile","mobile","70 zeichen","einspaltig","responsive","lesbarkeit"]}]},{"id":6,"title":"7 · Bild- und Grafikdaten & Kameratechnik","shortTitle":"Bild, Grafik & Kamera","questions":[{"type":"radio","q":"Was passiert wenn man eine Pixelgrafik stark vergrößert?","options":["Automatisch schärfer","Qualitätsverlust - einzelne Pixel sichtbar (Treppeneffekt)","Dateigröße sinkt","Auflösung steigt"],"correct":[1],"explanation":"Pixelgrafik bei Vergrößerung: Qualitätsverlust, Treppeneffekt. Immer in ausreichender Größe anlegen!"},{"type":"radio","q":"Was ist die effektive Auflösung?","options":["Auflösung wie in Photoshop angegeben","Reale Auflösung nach Skalierung im Layout. Formel: Datei-ppi x (100 / Skalierung%)","Auflösung nach dem Drucken","Maximale Auflösung der Druckmaschine"],"correct":[1],"explanation":"Effektive Auflösung: Datei-ppi x (100 / Skalierung%). 300 ppi auf 200% = 150 ppi effektiv. Immer im Endformat prüfen!"},{"type":"radio","q":"Bild hat 300 ppi, wird auf 200% skaliert. Effektive Auflösung?","options":["600 ppi","300 ppi","150 ppi","75 ppi"],"correct":[2],"explanation":"300 x (100 / 200) = 150 ppi. Weniger als 300 ppi -> NICHT ausreichend für Offsetdruck!"},{"type":"radio","q":"Was bewirkt kleine Blendenzahl (f/1.8)?","options":["Alles scharf, viel Tiefenschärfe","Geringe Tiefenschärfe - Hintergrund unscharf (Bokeh)","Bild wird dunkler","Belichtungszeit länger"],"correct":[1],"explanation":"Kleine f-Zahl (f/1.8) = große Öffnung = viel Licht = geringe Tiefenschärfe -> Bokeh. Große f-Zahl (f/16) = alles scharf."},{"type":"radio","q":"Was bewirkt hoher ISO-Wert?","options":["Wenig Rauschen, maximale Qualität","Mehr Licht aber Bild wird körniger/rauschiger","Bild wird schärfer","Tiefenschärfe steigt"],"correct":[1],"explanation":"Hoher ISO: mehr Empfindlichkeit, mehr Licht - aber auch mehr Bildrauschen. Faustregel: So niedrig wie möglich, so hoch wie nötig."},{"type":"radio","q":"Was bewirkt kurze Belichtungszeit (1/1000s)?","options":["Bewegungsunschärfe","Bewegung wird eingefroren - ideal für Sport","Bild dunkler","Stativ nötig"],"correct":[1],"explanation":"Kurze Belichtungszeit: Bewegung eingefroren. Ideal für Sport, Wasserspritzer, Vögel."},{"type":"radio","q":"Was ist das Belichtungsdreieck?","options":["Komposition im Bild","ISO, Blende und Belichtungszeit steuern gemeinsam Helligkeit und Bildwirkung","Methode zur Farbkorrektur","Verhältnis Vordergrund-Motiv-Hintergrund"],"correct":[1],"explanation":"Belichtungsdreieck: ISO + Blende + Belichtungszeit. Ändert man einen Wert müssen die anderen angepasst werden."},{"type":"text","q":"Erkläre wann du f/1.8 vs. f/16 einsetzt.","modelAnswer":"f/1.8 (kleine Zahl, große Öffnung): viel Licht, geringe Tiefenschärfe, Hintergrund unscharf. Einsatz: Portraits, schwaches Licht. f/16 (große Zahl, kleine Öffnung): wenig Licht, viel Tiefenschärfe, alles scharf. Einsatz: Landschaft, Architektur.","keywords":["portrait","landschaft","tiefenschärfe","blende","unscharf","scharf","licht"]},{"type":"radio","q":"Was ist der Unterschied zwischen weichem und hartem Licht?","options":["Weiches Licht kälter","Weiches Licht (Softbox, Bewölkung) = diffus, kaum Schatten. Hartes Licht (direkte Sonne) = scharf, starke Schatten.","Hartes Licht macht Bilder schlechter","Weiches Licht braucht immer Reflektor"],"correct":[1],"explanation":"Weiches Licht: diffus, gleichmäßig. Quellen: Softbox, bewölkter Himmel. Hartes Licht: scharf, starke Schatten. Quellen: direkte Sonne, Blitz."},{"type":"radio","q":"Was ist das Fülllicht?","options":["Stärkstes Licht","Schwächeres Licht das Schatten des Hauptlichts aufhellt und Kontrast reduziert","Licht hinter dem Motiv","Automatischer Blitz"],"correct":[1],"explanation":"Fülllicht: schwächer als Hauptlicht, hellt dessen Schatten auf. Zusammen mit Hauptlicht und Gegenlicht = 3-Punkt-Beleuchtung."},{"type":"checkbox","q":"Korrekte Auflösungs-Zuordnungen?","options":["72-96 ppi -> Bildschirm/Web","300 ppi -> Webgrafiken","300 ppi -> Standard Offsetdruck","150 ppi -> einfacher Druck","600-1200 dpi -> Standard Fotos Web"],"correct":[0,2,3],"explanation":"72-96 ppi: Screen/Web. 150 ppi: einfacher Druck. 300 ppi: Offsetdruck. 600-1200 dpi: Strichzeichnungen."},{"type":"radio","q":"Wann Stativ verwenden?","options":["Immer","Bei langen Belichtungszeiten (ab ca. 1/30s) um Verwackeln zu vermeiden","Nur bei Nacht","Stative sind veraltet"],"correct":[1],"explanation":"Stativ bei langen Belichtungszeiten. Faustregel: Länger als 1/Brennweite -> Stativ."},{"type":"text","q":"Erkläre ISO-Faustregel. Wann ISO 100 vs. ISO 3200?","modelAnswer":"Faustregel: ISO so niedrig wie möglich, so hoch wie nötig. ISO 100: bei viel Licht (Sonne, Studio) - kein Rauschen, maximale Qualität. ISO 3200: bei sehr wenig Licht (Nacht, Konzert) wenn kein Blitz möglich - mehr Rauschen aber trotzdem ein Bild.","keywords":["iso","rauschen","licht","sonne","nacht","qualität","faustregel"]},{"type":"radio","q":"Welche Formate sind Vektorgrafiken?","options":["JPG und PNG","AI, EPS und SVG","TIFF und PSD","GIF und WebP"],"correct":[1],"explanation":"Vektorformate: AI, EPS, SVG. Pixelformate: JPG, PNG, TIFF, GIF, PSD, WebP."}]},{"id":7,"title":"8 · Daten für Ausgabeprozesse aufbereiten","shortTitle":"Ausgabeprozesse & Druck","questions":[{"type":"radio","q":"Was ist Breitbahn (BB)?","options":["Laufrichtung parallel zur kurzen Seite","Laufrichtung parallel zur langen Seite","Kein Unterschied","Besonders breites Papier"],"correct":[1],"explanation":"Breitbahn (BB): Laufrichtung parallel zur langen Seite. Schmalbahn (SB): kurze Seite. 70x100 BB = Laufrichtung parallel zur 100 cm Seite."},{"type":"radio","q":"Warum immer parallel zur Laufrichtung falzen?","options":["Für gleichmäßige Farbe","Quer falzen führt zu Knittern und Brechen","Nur bei über 200 g/m² wichtig","Beeinflusst Druckqualität"],"correct":[1],"explanation":"Quer zur Laufrichtung falzen: Papier bricht, knittert. Immer parallel! Besonders bei dickem Papier wichtig."},{"type":"radio","q":"Was ist der Einbruchfalz?","options":["Mehrere Parallelfalze","Ein Blatt einmal in der Mitte gefalzt = 2 Hälften, 4 Seiten. Einfachste Form.","Falze wechseln Richtung","Zweimal rechtwinklig gefalzt"],"correct":[1],"explanation":"Einbruchfalz: 1 Falz in der Mitte = 4 Seiten. Einfachste und günstigste Form. Für Beilagen, Einladungen."},{"type":"radio","q":"Unterschied Wickelfalz vs. Zickzackfalz?","options":["Kein Unterschied","Wickelfalz: alle Panels parallel, innere schmaler. Zickzack: Panels wechseln Richtung, alle gleich breit.","Zickzack mehr Seiten","Wickelfalz nur 2 Panels"],"correct":[1],"explanation":"Wickelfalz: parallel, innen schmaler. Zickzack/Leporello: wechselnde Richtung wie Faltbalg - alle Panels gleich breit."},{"type":"radio","q":"Was ist der Kreuzfalz?","options":["Mehrere Parallelfalze","2 Falze in 90° zueinander = 8 Seiten. Wie ein kleines Heft.","Außenseiten klappen nach innen","Wechselnde Richtungen"],"correct":[1],"explanation":"Kreuzfalz: 2 Falze rechtwinklig = 8 Seiten. Für Grußkarten, einfache Broschüren. Achtung: Wulst bei dickem Papier."},{"type":"radio","q":"Was ist der Fensterfalz (Altarfalz)?","options":["Parallelfalze in eine Richtung","Außenpanels klappen nach innen wie Fensterläden - Mittelteil breiter. 6 Seiten. Sehr elegant.","Zweimal rechtwinklig","Wechselnde Richtungen"],"correct":[1],"explanation":"Fensterfalz: Außenpanels nach innen (wie Fensterläden). Mittelteil breiter. 6 Seiten. Elegant, Überraschungseffekt beim Öffnen!"},{"type":"radio","q":"Wofür eignet sich der Zickzackfalz/Leporellofalz?","options":["Nur für viele Seiten","Landkarten, Flyer, Bilderbücher - kann komplett ausgezogen werden wie Ziehharmonika","Nur für dickes Papier","Nur DIN-Lang"],"correct":[1],"explanation":"Zickzack: alle Panels gleich breit, wechselnde Richtung. Kann komplett aufgezogen werden. Ideal für Landkarten, Flyer, Bilderbücher."},{"type":"checkbox","q":"Korrekte Aussagen zum Wickelfalz?","options":["Alle Panels gleich breit","Jedes innere Panel ca. 2-3 mm schmaler","Panels parallel in gleiche Richtung","Für Speisekarten und Prospekte","Designer muss Panelbreiten unterschiedlich anlegen"],"correct":[1,2,3,4],"explanation":"Wickelfalz: parallel, innen schmaler (sonst passt es nicht). Für Speisekarten, Prospekte. Panelbreiten unterschiedlich anlegen!"},{"type":"radio","q":"Wie viele Seiten hat ein Kreuzfalz?","options":["4","6","8","12"],"correct":[2],"explanation":"Kreuzfalz: 2 Falze = 4 Lagen = 8 Seiten."},{"type":"radio","q":"Unterschied PDF/X-1a vs. PDF/X-4?","options":["Identisch","PDF/X-1a: nur CMYK, keine Transparenz, sicher. PDF/X-4: aktuell, erlaubt Transparenz & Ebenen.","PDF/X-4 ist älter","PDF/X-1a erlaubt Transparenz"],"correct":[1],"explanation":"PDF/X-1a: alt, nur CMYK, keine Transparenz. PDF/X-4: aktuell empfohlen, erlaubt Transparenzen und Ebenen."},{"type":"checkbox","q":"Was enthält die Druckdaten-Checkliste?","options":["CMYK-Farbraum","300 ppi effektiv prüfen","3 mm Beschnitt","3 mm Sicherheitsabstand","Schriften einbetten oder Pfade","DOCX speichern"],"correct":[0,1,2,3,4],"explanation":"Druckdaten: CMYK, 300 ppi effektiv, 3 mm Beschnitt, 3 mm Sicherheitsabstand, Schriften eingebettet/Pfade, ICC-Profil, Preflight."},{"type":"text","q":"Erkläre den Unterschied zwischen Beschnitt und Sicherheitsabstand.","modelAnswer":"Beschnitt (Bleed): Farbflächen und Bilder müssen 3-5 mm über den Rand hinausgehen. Grund: Schneidemaschinen nicht exakt - ohne Beschnitt entstehen weiße Ränder. Sicherheitsabstand: Wichtige Inhalte (Text, Logos) mindestens 3-5 mm vom Rand entfernt damit sie nicht abgeschnitten werden.","keywords":["beschnitt","sicherheitsabstand","3 mm","rand","schneiden","toleranz","weiß"]},{"type":"radio","q":"Was ist partieller UV-Lack?","options":["Vollflächiger Hochglanzlack","Glänzender Lack nur auf bestimmten Bereichen (z.B. Logo auf matter Fläche) als Highlight-Effekt","Schutzlack für Papier","Grundierung vor dem Druck"],"correct":[1],"explanation":"Partieller UV-Lack: nur auf bestimmten Bereichen aufgetragen. Glänzendes Highlight auf matter Folienkaschierung. Sehr elegant."},{"type":"radio","q":"Was ist die Rückendrahtheftung?","options":["Seiten mit Kleber verbunden","2 Drahtklammern am Rücken. Bis ca. 64 Seiten. Günstig für Broschüren.","Fester Einband aus Pappe","Spiralbindung"],"correct":[1],"explanation":"Rückendrahtheftung: 2 Drahtklammern am Rücken. Günstigste Bindeart, bis ca. 64 Seiten. Für Broschüren und Hefte."}]},{"id":8,"title":"9 · Farbmodelle & Farbkontraste","shortTitle":"Farbe","questions":[{"type":"radio","q":"Grundlegender Unterschied RGB vs. CMYK?","options":["RGB für Druck, CMYK für Bildschirm","RGB addiert Licht (alle max = Weiß). CMYK absorbiert Licht (subtraktiv, alle max = Tiefschwarz).","Beide identisch","RGB hat weniger Farben"],"correct":[1],"explanation":"RGB additiv: alle max = Weiß. CMYK subtraktiv: alle max = Tiefschwarz. K extra weil CMY zusammen nur Dunkelbraun ergibt."},{"type":"radio","q":"Warum wird beim Druck ein separates K (Schwarz) verwendet?","options":["Schwarz ist billiger","CMY zusammen ergibt nur schmutziges Dunkelbraun statt Schwarz. K liefert sauberes Tiefschwarz.","CMY zu teuer","Schwarz nur für Texte"],"correct":[1],"explanation":"CMY zusammen: schmutziges Dunkelbraun. K (Key/Black) liefert sauberes Tiefschwarz, schärfere Texte und spart Farbkosten."},{"type":"radio","q":"Wann von RGB nach CMYK konvertieren?","options":["Niemals","Immer vor der Druckausgabe","Nur bei Fotos","RGB kann direkt gedruckt werden"],"correct":[1],"explanation":"Immer vor dem Druck RGB zu CMYK konvertieren! Nicht konvertiert = Druckerei übernimmt es mit oft ungewollten Farbverschiebungen."},{"type":"radio","q":"Was ist das HSB-Farbmodell?","options":["Druckfarbmodell","Hue (Farbton 0-360°), Saturation (Sättigung 0-100%), Brightness (Helligkeit 0-100%). Intuitiv für Menschen.","Deutsches Sonderfarben-System","Modell für Schwarzweiß"],"correct":[1],"explanation":"HSB: Farbton, Sättigung, Helligkeit. Intuitiver als RGB/CMYK weil es beschreibt wie Menschen Farbe wahrnehmen."},{"type":"radio","q":"Was ist der Komplementärkontrast nach Itten?","options":["Hell gegen dunkel","Gegenüberliegende Farben im Farbkreis (Rot & Grün, Blau & Orange) - maximale Spannung","Gesättigt neben ungesättigt","Warm neben kalt"],"correct":[1],"explanation":"Komplementärkontrast (Nr. 4): Gegenüberliegende Farben. Rot/Grün, Blau/Orange, Gelb/Violett. Maximale Spannung."},{"type":"radio","q":"Was ist der Simultankontrast?","options":["Zwei bunte Farben gleichzeitig","Gleiche Farbe wirkt je nach Umgebungsfarbe anders (Grau auf Rot wirkt grünlich)","Hell-Dunkel-Unterschied","Unterschiedliche Farbflächen"],"correct":[1],"explanation":"Simultankontrast (Nr. 5): Dieselbe Farbe wirkt in verschiedenen Umgebungen anders. Gehirn ergänzt Komplementärfarbe der Umgebung."},{"type":"checkbox","q":"Welche gehören zu Ittens 7 Kontrasten?","options":["Farbe-an-sich-Kontrast","Hell-Dunkel-Kontrast","Auflösungskontrast","Kalt-Warm-Kontrast","Komplementärkontrast","Kerningkontrast","Quantitätskontrast"],"correct":[0,1,3,4,6],"explanation":"Ittens 7: Farbe-an-sich, Hell-Dunkel, Kalt-Warm, Komplementär, Simultan, Qualitätskontrast, Quantitätskontrast."},{"type":"text","q":"Erkläre den Merksatz F-H-K-K-S-Q-Q.","modelAnswer":"F=Farbe-an-sich (bunte Grundfarben nebeneinander). H=Hell-Dunkel (hell gegen dunkel). K=Kalt-Warm (warme vs. kalte Farben). K=Komplementär (gegenüberliegende Farben). S=Simultan (gleiche Farbe wirkt je nach Umgebung anders). Q=Qualitätskontrast (gesättigt vs. gebrochen). Q=Quantitätskontrast (unterschiedliche Farbflächen).","keywords":["farbe-an-sich","hell-dunkel","kalt-warm","komplementär","simultan","qualität","quantität"]},{"type":"radio","q":"Was ist Pantone (PMS)?","options":["Deutsches Druckfarbensystem","Weltweites Sonderfarben-System mit eindeutigen Farbnummern (Pantone 485 = kräftiges Rot)","Digitale Farbkorrektur","Modell für Webdesign"],"correct":[1],"explanation":"Pantone (PMS): weltweiter Standard für Sonderfarben. Eindeutige Nummern sichern exakte Farbwiedergabe weltweit."},{"type":"radio","q":"Hexadezimal-Farbsystem im Web?","options":["#CMYK mit 4 Stellen","#RRGGBB mit je 2 Stellen für R, G, B (0-FF). Beispiel: #FF5733","Prozentangaben 0-100","Tabelle mit 16 Farben"],"correct":[1],"explanation":"Hex: #RRGGBB. Je 2 Stellen für R, G, B in hex (0-FF = 0-255). #FF0000 = Rot, #000000 = Schwarz, #FFFFFF = Weiß."},{"type":"radio","q":"Was ist HKS?","options":["Englisches Textildruck-System","Deutsches Sonderfarben-System (K=Kunstdruck, N=Normal, Z=Zeitung)","Digitales Farbmodell","Monitorkalibrierung"],"correct":[1],"explanation":"HKS: deutsches Sonderfarben-System. K=Kunstdruck (gestrichen), N=Normalpapier, Z=Zeitungsdruck."},{"type":"radio","q":"Was ist der Kalt-Warm-Kontrast?","options":["Hell vs. dunkel","Warme Farben (Rot, Orange, Gelb) wirken vor - kalte (Blau, Cyan) wirken zurück. Erzeugt Tiefenwirkung.","Gesättigt vs. ungesättigt","Unterschiedliche Mengen"],"correct":[1],"explanation":"Kalt-Warm (Nr. 3): Warme Farben wirken nah/vor, kalte fern/zurück. Erzeugt Tiefenwirkung im Bild."},{"type":"checkbox","q":"Korrekte kulturelle Farbwirkungen?","options":["Weiß = Trauer in Asien","Rot = überall Gefahr","Rot = Glück in China","Farbwirkung kulturunabhängig","Farbwirkung variiert je nach Kultur"],"correct":[0,2,4],"explanation":"Farbwirkung ist kulturabhängig! Weiß = Trauer in Asien. Rot = Glück in China. Immer Zielkultur beachten!"},{"type":"text","q":"Erkläre warum Lab (CIELab) als Referenzfarbraum genutzt wird.","modelAnswer":"Lab ist geräteunabhängig - beschreibt Farben wie Menschen sie wahrnehmen, unabhängig vom Ausgabegerät. Deshalb als neutraler Referenzfarbraum bei ICC-Farbprofilkonvertierungen genutzt wenn Farben von einem Gerät auf ein anderes umgerechnet werden.","keywords":["geräteunabhängig","referenz","icc","konvertierung","wahrnehmung","profil"]}]},{"id":9,"title":"10 · Berechnungsaufgaben","shortTitle":"Berechnungen","questions":[{"type":"text","q":"Berechne die Dateigröße: 3000 x 2000 px, RGB, 8 Bit.","modelAnswer":"Formel: Breite x Höhe x Kanäle x 1 Byte. Rechnung: 3000 x 2000 x 3 = 18.000.000 Byte. Umrechnung: 18.000.000 / 1024 = 17.578 KB / 1024 = ca. 17,2 MB.","keywords":["3000","2000","3","18","mb","byte","1024","rgb"]},{"type":"text","q":"Wie viele Pixel breit ist ein 10 cm breites Bild bei 300 ppi?","modelAnswer":"Formel: Pixel = cm / 2,54 x ppi. Rechnung: 10 / 2,54 x 300 = 3,937 x 300 = 1181 Pixel.","keywords":["10","2,54","300","1181","pixel"]},{"type":"text","q":"Bild: 1200 x 900 px auf A5 (14,8 cm Breite). Auflösung ok für Offsetdruck?","modelAnswer":"Formel: ppi = Pixel x 2,54 / cm. Rechnung: 1200 x 2,54 / 14,8 = 206 ppi. Ergebnis: 206 ppi < 300 ppi -> NICHT ausreichend für Offsetdruck!","keywords":["1200","2,54","14,8","206","nicht ausreichend","300"]},{"type":"text","q":"Bild hat 300 ppi, wird auf 150% skaliert. Effektive Auflösung?","modelAnswer":"Formel: eff. ppi = Datei-ppi x (100 / Skalierung%). Rechnung: 300 x (100/150) = 200 ppi. Ergebnis: 200 ppi < 300 ppi -> NICHT ausreichend!","keywords":["300","150","100","200","effektiv","nicht ausreichend"]},{"type":"text","q":"Gewicht eines A4-Bogens bei 80 g/m². (A4 = 210 x 297 mm)","modelAnswer":"Formel: g/Bogen = g/m2 x Fläche in m2. Fläche: 0,210 x 0,297 = 0,06237 m2. Gewicht: 80 x 0,06237 = ca. 5 g.","keywords":["0,210","0,297","0,0624","80","5","gramm","fläche"]},{"type":"text","q":"48 Seiten A4, 135 g/m2. Wie viel wiegt ein Exemplar?","modelAnswer":"Schritt 1: Bogen = 48 / 4 = 12 Bogen. Schritt 2: Fläche A4 = 0,210 x 0,297 = 0,0624 m2. Schritt 3: g/Bogen = 135 x 0,0624 = 8,42 g. Schritt 4: Gesamt = 12 x 8,42 = 101 g.","keywords":["48","4","12","0,0624","135","8,42","101","bogen","gramm"]},{"type":"text","q":"500 Flyer für 850 Euro. Kosten pro Stück?","modelAnswer":"Formel: Kosten/Stück = Gesamt / Auflage. Rechnung: 850 / 500 = 1,70 Euro pro Stück.","keywords":["850","500","1,70","stück","kosten"]},{"type":"text","q":"3000 px breites Bild bei 300 ppi. Wie groß in cm?","modelAnswer":"Formel: cm = Pixel / ppi x 2,54. Rechnung: 3000 / 300 x 2,54 = 10 x 2,54 = 25,4 cm.","keywords":["3000","300","2,54","25,4","cm"]},{"type":"radio","q":"Welche Formel berechnet die effektive Auflösung?","options":["eff. ppi = Datei-ppi x Skalierung%","eff. ppi = Datei-ppi x (100 / Skalierung%)","eff. ppi = Datei-ppi + Skalierung%","eff. ppi = Datei-ppi / 100"],"correct":[1],"explanation":"Effektive Auflösung: Datei-ppi x (100 / Skalierung%). Größer skaliert = weniger effektive Auflösung!"},{"type":"radio","q":"Bogen für 32-seitige Broschüre?","options":["4","8","16","32"],"correct":[1],"explanation":"Bogenzahl = Seiten / 4. (1 Bogen gefaltet = 4 Seiten). 32 / 4 = 8 Bogen."},{"type":"radio","q":"Formel Pixel aus Zentimetern?","options":["Pixel = cm x ppi","Pixel = cm x 2,54 x ppi","Pixel = cm / 2,54 x ppi","Pixel = cm / ppi x 2,54"],"correct":[2],"explanation":"Pixel = cm / 2,54 x ppi. Erst cm in Zoll (/ 2,54), dann x ppi. 10 cm bei 300 ppi = 1181 px."},{"type":"text","q":"A6-Flyer (10,5 x 14,8 cm), 90 g/m2, 1000 Stück, 180 Euro. Kosten/Stück?","modelAnswer":"Kosten/Stück: 180 / 1000 = 0,18 Euro (18 Cent). Gewicht: Fläche = 0,105 x 0,148 = 0,01554 m2. Gewicht = 90 x 0,01554 = 1,40 g.","keywords":["180","1000","0,18","18","cent","gramm"]},{"type":"radio","q":"Was bedeutet g/m2 bei Papier und welchen Wert hat Kopierpapier?","options":["Gramm pro Meter","Gramm pro Quadratmeter (Grammatur) - Kopierpapier 80 g/m2","Gewicht pro Bogen","Papierdicke"],"correct":[1],"explanation":"g/m2 = Grammatur = Gewicht pro Quadratmeter. Kopierpapier: 80 g/m2. Prospekte: 130-170 g/m2. Visitenkarten: 250-350 g/m2."},{"type":"text","q":"Pixelgröße für A4 (210 x 297 mm) bei 300 ppi berechnen.","modelAnswer":"Formel: Pixel = cm / 2,54 x ppi. Breite: 21 cm / 2,54 x 300 = 2480 px. Höhe: 29,7 cm / 2,54 x 300 = 3508 px. Ergebnis: ca. 2480 x 3508 Pixel.","keywords":["21","29,7","2,54","300","2480","3508","pixel","a4"]}]}];
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+let state = {
+  currentTopic: 0,
+  currentQuestion: 0,
+  answers: {},
+  completedTopics: [],
+  mode: 'welcome',
+  shuffledQuestions: {}
+};
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+const QUESTIONS_PER_TOPIC = 6;
+
+function freshState() {
+  return {
+    currentTopic: 0,
+    currentQuestion: 0,
+    answers: {},
+    completedTopics: [],
+    skippedTopics: [],   // topics where at least 1 question was skipped
+    attemptCounts: {},   // attemptCounts[topicIdx][qIdx] = number of wrong attempts
+    mode: 'welcome',
+    shuffledQuestions: {}
+  };
+}
+
+$(function () {
+  renderSidebar();
+
+  $('#btnStart').on('click', function () {
+    state.mode = 'quiz';
+    $('#viewWelcome').addClass('hidden');
+    renderTopic(0);
+  });
+
+  $(document).on('click', '#btnResetAll', function () {
+    state = freshState();
+    // Reset sidebar nav states
+    $('[data-topic]').off('click');
+    renderSidebar();
+    $('#viewQuiz').addClass('hidden');
+    $('#viewWelcome').removeClass('hidden');
+  });
+});
+
+// ═══════════════════════════════════════════════
+// SIDEBAR
+// ═══════════════════════════════════════════════
+function renderSidebar() {
+  const completed = state.completedTopics.length;
+  const total = TOPICS.length;
+  const pct = Math.round((completed / total) * 100);
+
+  $('#overallPct').text(pct + '%');
+  $('#overallFill').css('width', pct + '%');
+
+  TOPICS.forEach(function (t, i) {
+    const $item = $('[data-topic="' + i + '"]');
+    const $status = $('[data-status="' + i + '"]');
+
+    $item.removeClass('is-active is-completed is-locked is-available is-skipped');
+
+    const isCompleted = state.completedTopics.includes(i);
+    const isSkipped   = state.skippedTopics.includes(i);
+    const isCurrent   = state.currentTopic === i && state.mode === 'quiz';
+    const isLocked    = !isCompleted && !isSkipped && i > 0
+                        && !state.completedTopics.includes(i - 1)
+                        && !state.skippedTopics.includes(i - 1)
+                        && i !== state.currentTopic;
+
+    if (isCurrent && !isCompleted && !isSkipped) {
+      $item.addClass('is-active');
+      $status.html('<svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="3"/></svg>');
+    } else if (isCompleted) {
+      // Green – 100% correct, no skips
+      $item.addClass('is-completed');
+      $item.css('background', '').find('.topic-nav-item__status').css('color', '#15803D');
+      $status.html('<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>');
+      $item.off('click').on('click', function () { renderReview(i); });
+      $item.css('pointer-events', 'auto').css('opacity', '1').css('cursor', 'pointer');
+    } else if (isSkipped) {
+      // Red – skipped at least one question
+      $item.addClass('is-skipped');
+      $status.html('<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>');
+      $item.off('click').on('click', function () { renderReview(i); });
+      $item.css('pointer-events', 'auto').css('opacity', '1').css('cursor', 'pointer');
+    } else if (!isLocked) {
+      $item.addClass('is-available');
+      $status.html('');
+    } else {
+      $item.addClass('is-locked');
+      $status.html('<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>');
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════
+// SHUFFLE HELPERS
+// ═══════════════════════════════════════════════
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function buildShuffledTopic(topicIdx) {
+  var topic = TOPICS[topicIdx];
+  // Pick random subset of questions from the pool
+  var allIndices = topic.questions.map(function(_, i){ return i; });
+  var pickedIndices = shuffle(allIndices).slice(0, QUESTIONS_PER_TOPIC);
+  return pickedIndices.map(function(origIdx) {
+    var orig = topic.questions[origIdx];
+    var q = JSON.parse(JSON.stringify(orig)); // deep clone
+    if (q.type === 'radio' || q.type === 'checkbox') {
+      // Shuffle option order and remap correct[]
+      var optIndices = shuffle(orig.options.map(function(_, i){ return i; }));
+      q.options = optIndices.map(function(i){ return orig.options[i]; });
+      var oldToNew = {};
+      optIndices.forEach(function(oldIdx, newIdx){ oldToNew[oldIdx] = newIdx; });
+      q.correct = orig.correct.map(function(c){ return oldToNew[c]; }).sort(function(a,b){return a-b;});
+    }
+    return q;
+  });
+}
+
+// Returns the (shuffled) question for a given topic+index
+function getQ(topicIdx, qIdx) {
+  if (state.shuffledQuestions && state.shuffledQuestions[topicIdx]) {
+    return state.shuffledQuestions[topicIdx][qIdx];
+  }
+  return TOPICS[topicIdx].questions[qIdx];
+}
+
+function getQCount(topicIdx) {
+  if (state.shuffledQuestions && state.shuffledQuestions[topicIdx]) {
+    return state.shuffledQuestions[topicIdx].length;
+  }
+  return TOPICS[topicIdx].questions.length;
+}
+
+// ═══════════════════════════════════════════════
+// RENDER TOPIC (Quiz Mode)
+// ═══════════════════════════════════════════════
+function renderTopic(topicIdx) {
+  state.currentTopic = topicIdx;
+  state.currentQuestion = 0;
+  state.answers[topicIdx] = [];
+  // Generate fresh random order on every (re)start
+  state.shuffledQuestions = state.shuffledQuestions || {};
+  state.shuffledQuestions[topicIdx] = buildShuffledTopic(topicIdx);
+  state.mode = 'quiz';
+  renderSidebar();
+  renderQuestion(topicIdx, 0);
+}
+
+function renderQuestion(topicIdx, qIdx) {
+  state.currentQuestion = qIdx;
+  const topic = TOPICS[topicIdx];
+  const q = getQ(topicIdx, qIdx);
+  const total = getQCount(topicIdx);
+  const progress = Math.round((qIdx / total) * 100);
+
+  let html = `
+    <div class="topic-header">
+      <div class="topic-header__meta">Thema ${topicIdx + 1} von ${TOPICS.length}</div>
+      <h1 class="topic-header__title">${topic.title}</h1>
+      <div class="topic-header__progress-row">
+        <div class="topic-header__progress-bar">
+          <div class="topic-header__progress-fill" style="width:${progress}%"></div>
+        </div>
+        <span class="topic-header__progress-label">Frage ${qIdx + 1} / ${total}</span>
+      </div>
+    </div>
+    <div class="question-card" id="questionCard">${buildQuestion(q, qIdx)}</div>
+  `;
+
+  $('#viewQuiz').removeClass('hidden').html(html);
+  bindQuestionEvents(topicIdx, qIdx);
+  mainContent().scrollTop(0);
+}
+
+function buildQuestion(q, qIdx) {
+  let inner = `
+    <div class="question-card__index">Frage ${qIdx + 1}</div>
+    <div class="question-card__text">${q.q}</div>
+  `;
+
+  if (q.type === 'checkbox') {
+    inner += `<div class="question-card__hint">Mehrere Antworten können richtig sein.</div>`;
+  }
+
+  if (q.type === 'radio' || q.type === 'checkbox') {
+    inner += `<ul class="options-list" id="optionsList">`;
+    q.options.forEach(function (opt, i) {
+      const inputType = q.type === 'radio' ? 'radio' : 'checkbox';
+      inner += `
+        <li class="option-item" data-idx="${i}">
+          <input type="${inputType}" name="q${qIdx}" id="opt${i}" value="${i}" class="option-item__input">
+          <div class="option-item__indicator ${q.type === 'checkbox' ? 'is-checkbox' : ''}" data-ind="${i}"></div>
+          <label class="option-item__label">${opt}</label>
+          <span class="option-item__mark" data-mark="${i}"></span>
+        </li>`;
+    });
+    inner += `</ul>`;
+    inner += `<div class="btn-row"><button class="btn btn--primary" id="btnCheck" disabled>Antwort prüfen</button></div>`;
+  } else {
+    // text
+    inner += `
+      <div class="text-answer">
+        <textarea id="textInput" placeholder="Schreibe deine Antwort hier..." rows="5"></textarea>
+      </div>
+      <div class="btn-row"><button class="btn btn--primary" id="btnCheckText" disabled>Antwort prüfen</button></div>
+    `;
+  }
+
+  return inner;
+}
+
+// ═══════════════════════════════════════════════
+// EVENT BINDING
+// ═══════════════════════════════════════════════
+function bindQuestionEvents(topicIdx, qIdx) {
+  const q = getQ(topicIdx, qIdx);
+
+  if (q.type === 'radio') {
+    // Click option-item for radio
+    $(document).off('click.opt').on('click.opt', '.option-item', function () {
+      if ($(this).hasClass('is-disabled')) return;
+      const idx = $(this).data('idx');
+      $('.option-item').removeClass('is-selected');
+      $(this).addClass('is-selected');
+      $('[data-ind]').removeClass('is-checked');
+      $('[data-ind="' + idx + '"]').addClass('is-checked');
+      $('input[name="q' + qIdx + '"][value="' + idx + '"]').prop('checked', true);
+      $('#btnCheck').prop('disabled', false);
+    });
+
+    $('#btnCheck').on('click', function () {
+      const selected = parseInt($('input[name="q' + qIdx + '"]:checked').val());
+      evaluateMC(topicIdx, qIdx, [selected]);
+    });
+
+  } else if (q.type === 'checkbox') {
+    $(document).off('click.opt').on('click.opt', '.option-item', function () {
+      if ($(this).hasClass('is-disabled')) return;
+      const idx = $(this).data('idx');
+      const $input = $('input[name="q' + qIdx + '"][value="' + idx + '"]');
+      const checked = !$input.prop('checked');
+      $input.prop('checked', checked);
+      $(this).toggleClass('is-selected', checked);
+      $('[data-ind="' + idx + '"]').toggleClass('is-checked', checked);
+
+      const anyChecked = $('input[name="q' + qIdx + '"]:checked').length > 0;
+      $('#btnCheck').prop('disabled', !anyChecked);
+    });
+
+    $('#btnCheck').on('click', function () {
+      const selected = [];
+      $('input[name="q' + qIdx + '"]:checked').each(function () {
+        selected.push(parseInt($(this).val()));
+      });
+      evaluateMC(topicIdx, qIdx, selected);
+    });
+
+  } else {
+    // text
+    $('#textInput').on('input', function () {
+      $('#btnCheckText').prop('disabled', $(this).val().trim().length < 10);
+    });
+
+    $('#btnCheckText').on('click', function () {
+      const userText = $('#textInput').val().trim();
+      showModelAnswer(topicIdx, qIdx, userText);
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════
+// EVALUATE MC
+// ═══════════════════════════════════════════════
+function evaluateMC(topicIdx, qIdx, selected) {
+  const q = getQ(topicIdx, qIdx);
+  const correct = q.correct.slice().sort();
+  const userSorted = selected.slice().sort();
+  const isCorrect = JSON.stringify(correct) === JSON.stringify(userSorted);
+
+  // Track attempt count
+  if (!state.attemptCounts[topicIdx]) state.attemptCounts[topicIdx] = {};
+  if (!isCorrect) {
+    state.attemptCounts[topicIdx][qIdx] = (state.attemptCounts[topicIdx][qIdx] || 0) + 1;
+  }
+  const attempts = state.attemptCounts[topicIdx][qIdx] || 0;
+
+  // Record answer
+  state.answers[topicIdx][qIdx] = { userAnswer: selected, correct: isCorrect, type: q.type };
+
+  // Disable all options
+  $('.option-item').addClass('is-disabled');
+
+  // Mark each option
+  q.options.forEach(function (_, i) {
+    const $item = $('.option-item[data-idx="' + i + '"]');
+    const isSelected = selected.includes(i);
+    const isCorrectOpt = q.correct.includes(i);
+
+    $item.removeClass('is-selected');
+    if (isSelected && isCorrectOpt) {
+      $item.addClass('is-correct');
+      $('[data-mark="' + i + '"]').text('✓');
+    } else if (isSelected && !isCorrectOpt) {
+      $item.addClass('is-wrong');
+      $('[data-mark="' + i + '"]').text('✗');
+    } else if (!isSelected && isCorrectOpt) {
+      $item.addClass('is-missed');
+      $('[data-mark="' + i + '"]').text('●');
+    }
+  });
+
+  // Remove check button, show feedback
+  $('#btnCheck').closest('.btn-row').remove();
+
+  let feedbackHtml;
+  if (isCorrect) {
+    feedbackHtml = `
+      <div class="feedback feedback--correct">
+        <div class="feedback__icon">✓</div>
+        <div class="feedback__body">
+          <div class="feedback__title">Richtig!</div>
+          <div class="feedback__text">${q.explanation}</div>
+        </div>
+      </div>`;
+  } else {
+    const attemptsLeft = 3 - attempts;
+    const skipBtn = attempts >= 3
+      ? `<button class="btn btn--ghost" id="btnSkip" style="color:#DC2626;border-color:#FECACA">⏭ Frage überspringen</button>`
+      : (attemptsLeft > 0 ? `<span style="font-size:0.75rem;color:#6B7280">Noch ${attemptsLeft} Versuch(e) bis Skip möglich</span>` : '');
+    feedbackHtml = `
+      <div class="feedback feedback--wrong">
+        <div class="feedback__icon">✗</div>
+        <div class="feedback__body">
+          <div class="feedback__title">Leider falsch.${attempts >= 3 ? ' (3 Versuche)' : ' (Versuch ' + attempts + '/3)'}</div>
+          <div class="feedback__text">${q.explanation}</div>
+        </div>
+      </div>`;
+    feedbackHtml += `<div class="btn-row" style="margin-top:8px">${skipBtn}</div>`;
+  }
+
+  const nextLabel = qIdx + 1 < getQCount(topicIdx) ? 'Nächste Frage' : 'Ergebnis anzeigen';
+  feedbackHtml += `<button class="btn btn--next" id="btnNext">${nextLabel}</button>`;
+
+  $('#questionCard').append(feedbackHtml);
+
+  $('#btnNext').on('click', function () {
+    advanceQuestion(topicIdx, qIdx);
+  });
+
+  $('#btnSkip').on('click', function () {
+    skipQuestion(topicIdx, qIdx);
+  });
+}
+
+function skipQuestion(topicIdx, qIdx) {
+  // Mark as skipped
+  state.answers[topicIdx][qIdx] = { userAnswer: null, correct: false, skipped: true, type: getQ(topicIdx, qIdx).type };
+  if (!state.skippedTopics.includes(topicIdx)) {
+    state.skippedTopics.push(topicIdx);
+  }
+  // Remove from completedTopics if it was there
+  state.completedTopics = state.completedTopics.filter(function(t) { return t !== topicIdx; });
+  renderSidebar();
+  advanceQuestion(topicIdx, qIdx);
+}
+
+// ═══════════════════════════════════════════════
+// SHOW MODEL ANSWER (text questions)
+// ═══════════════════════════════════════════════
+function showModelAnswer(topicIdx, qIdx, userText) {
+  const q = getQ(topicIdx, qIdx);
+
+  $('#textInput').prop('readonly', true);
+  $('#btnCheckText').closest('.btn-row').remove();
+
+  const modelHtml = `
+    <div class="model-answer">
+      <div class="model-answer__label">📋 Musterlösung</div>
+      <div class="model-answer__text">${q.modelAnswer}</div>
+    </div>
+    <div class="self-eval">
+      <span class="self-eval__label">Hattest du es richtig?</span>
+      <button class="btn btn--success btn--sm" id="btnSelfCorrect">✓ Ja, richtig</button>
+      <button class="btn btn--danger btn--sm" id="btnSelfWrong">✗ Nein, falsch</button>
+    </div>
+  `;
+
+  $('#questionCard').append(modelHtml);
+
+  $('#btnSelfCorrect').on('click', function () {
+    recordTextAnswer(topicIdx, qIdx, userText, true);
+  });
+
+  $('#btnSelfWrong').on('click', function () {
+    recordTextAnswer(topicIdx, qIdx, userText, false);
+  });
+}
+
+function recordTextAnswer(topicIdx, qIdx, userText, isCorrect) {
+  state.answers[topicIdx][qIdx] = { userAnswer: userText, correct: isCorrect, type: 'text' };
+
+  $('.self-eval').remove();
+
+  const feedbackHtml = isCorrect
+    ? `<div class="feedback feedback--correct"><div class="feedback__icon">✓</div><div class="feedback__body"><div class="feedback__title">Super! Weiter so.</div></div></div>`
+    : `<div class="feedback feedback--wrong"><div class="feedback__icon">✗</div><div class="feedback__body"><div class="feedback__title">Kein Problem – beim nächsten Mal sitzt es!</div></div></div>`;
+
+  const nextLabel = qIdx + 1 < getQCount(topicIdx) ? 'Nächste Frage' : 'Ergebnis anzeigen';
+  $('#questionCard').append(feedbackHtml + `<button class="btn btn--next" id="btnNext">${nextLabel}</button>`);
+
+  $('#btnNext').on('click', function () {
+    advanceQuestion(topicIdx, qIdx);
+  });
+}
+
+// ═══════════════════════════════════════════════
+// ADVANCE
+// ═══════════════════════════════════════════════
+function advanceQuestion(topicIdx, qIdx) {
+  if (qIdx + 1 < getQCount(topicIdx)) {
+    renderQuestion(topicIdx, qIdx + 1);
+  } else {
+    showTopicResult(topicIdx);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// TOPIC RESULT
+// ═══════════════════════════════════════════════
+function showTopicResult(topicIdx) {
+  const topic = TOPICS[topicIdx];
+  const answers = state.answers[topicIdx] || [];
+  const total = answers.length;
+  const correct = answers.filter(function (a) { return a && a.correct; }).length;
+  const skippedCount = answers.filter(function (a) { return a && a.skipped; }).length;
+  const allCorrect = correct === total && total > 0 && skippedCount === 0;
+
+  if (allCorrect) {
+    if (!state.completedTopics.includes(topicIdx)) state.completedTopics.push(topicIdx);
+    state.skippedTopics = state.skippedTopics.filter(function(t) { return t !== topicIdx; });
+  } else if (skippedCount > 0) {
+    if (!state.skippedTopics.includes(topicIdx)) state.skippedTopics.push(topicIdx);
+    state.completedTopics = state.completedTopics.filter(function(t) { return t !== topicIdx; });
+  }
+
+  renderSidebar();
+
+  const isLast = topicIdx === TOPICS.length - 1;
+  let html = `
+    <div class="topic-header">
+      <div class="topic-header__meta">Thema ${topicIdx + 1} von ${TOPICS.length}</div>
+      <h1 class="topic-header__title">${topic.title}</h1>
+    </div>
+    <div class="completion-screen">
+      <span class="completion-screen__icon">${allCorrect ? '🎉' : '📝'}</span>
+      <h2 class="completion-screen__title">${allCorrect ? 'Thema abgeschlossen!' : 'Noch nicht ganz…'}</h2>
+      <p class="completion-screen__sub">Du hast ${correct} von ${total} Fragen richtig beantwortet.</p>
+      <div class="completion-screen__score">
+        <div class="completion-screen__score-item">
+          <span class="completion-screen__score-num">${correct}</span>
+          <span class="completion-screen__score-label">Richtig</span>
+        </div>
+        <div class="completion-screen__score-div"></div>
+        <div class="completion-screen__score-item">
+          <span class="completion-screen__score-num">${total - correct}</span>
+          <span class="completion-screen__score-label">Falsch</span>
+        </div>
+        <div class="completion-screen__score-div"></div>
+        <div class="completion-screen__score-item">
+          <span class="completion-screen__score-num">${Math.round(correct / total * 100)}%</span>
+          <span class="completion-screen__score-label">Score</span>
+        </div>
+      </div>`;
+
+  if (!allCorrect) {
+    const skipMsg = skippedCount > 0
+      ? `<br>⚠️ ${skippedCount} Frage(n) übersprungen – im Sidebar als 🔴 markiert.`
+      : '';
+    const canSkipForward = skippedCount > 0 || correct > 0; // allow going forward if partial
+    html += `
+      <div class="completion-screen__error-msg">
+        ${skippedCount > 0
+          ? '⏭ Du hast ' + skippedCount + ' Frage(n) übersprungen. Das Thema ist im Menü rot markiert.'
+          : 'Nicht alle Fragen richtig – wiederholen für 100%!'
+        }
+        ${skipMsg}
+      </div>
+      <div class="btn-row" style="justify-content:center;gap:12px">
+        <button class="btn btn--primary" id="btnRetry">🔄 Thema wiederholen</button>
+        <button class="btn btn--secondary" id="btnReviewCurrent">Antworten ansehen</button>
+        ${!isLast ? `<button class="btn btn--ghost" id="btnNextTopic" style="border-color:#E5E7EB">Weiter →</button>` : `<button class="btn btn--ghost" id="btnAllDone" style="border-color:#E5E7EB">Zum Abschluss →</button>`}
+      </div>`;
+  } else {
+    let nextBtns = `<div class="btn-row" style="justify-content:center;gap:12px">`;
+    nextBtns += `<button class="btn btn--secondary" id="btnReviewCurrent">Antworten ansehen</button>`;
+    if (!isLast) {
+      nextBtns += `<button class="btn btn--primary" id="btnNextTopic">Nächstes Thema ✓</button>`;
+    } else {
+      nextBtns += `<button class="btn btn--primary" id="btnAllDone">Alle Themen abgeschlossen 🎓</button>`;
+    }
+    nextBtns += `</div>`;
+    html += nextBtns;
+  }
+
+  html += `</div>`;
+  $('#viewQuiz').html(html);
+  mainContent().scrollTop(0);
+
+  $('#btnRetry').on('click', function () {
+    state.answers[topicIdx] = [];
+    renderTopic(topicIdx);
+  });
+
+  $('#btnNextTopic').on('click', function () {
+    renderTopic(topicIdx + 1);
+  });
+
+  $('#btnReviewCurrent').on('click', function () {
+    renderReview(topicIdx);
+  });
+
+  $('#btnAllDone').on('click', function () {
+    showAllDone();
+  });
+}
+
+// ═══════════════════════════════════════════════
+// REVIEW
+// ═══════════════════════════════════════════════
+function renderReview(topicIdx) {
+  const topic = TOPICS[topicIdx];
+  const answers = state.answers[topicIdx] || [];
+  const isCompleted = state.completedTopics.includes(topicIdx);
+  const isSkipped   = state.skippedTopics.includes(topicIdx);
+
+  let html = `
+    <div class="review-header">
+      <h1 class="review-header__title">${topic.title}</h1>
+      <span class="review-header__badge" style="${isCompleted ? 'background:#DCFCE7;color:#15803D;border-color:#B5DFC8' : (isSkipped ? 'background:#FEE2E2;color:#DC2626;border-color:#FECACA' : '')}">
+        ${isCompleted ? '✓ Abgeschlossen' : (isSkipped ? '⏭ Mit Skips' : 'Ausstehend')}
+      </span>
+    </div>`;
+
+  var reviewQuestions = (state.shuffledQuestions && state.shuffledQuestions[topicIdx])
+    ? state.shuffledQuestions[topicIdx]
+    : topic.questions;
+  reviewQuestions.forEach(function (q, i) {
+    const ans = answers[i];
+    const wasCorrect = ans && ans.correct;
+    let userAnswerText = '–';
+    let correctAnswerText = '';
+
+    if (ans) {
+      if (q.type === 'text') {
+        userAnswerText = ans.userAnswer || '–';
+        correctAnswerText = q.modelAnswer;
+      } else {
+        const selectedLabels = (ans.userAnswer || []).map(function (idx) { return q.options[idx]; }).join(', ');
+        userAnswerText = selectedLabels || '–';
+        correctAnswerText = q.correct.map(function (idx) { return q.options[idx]; }).join(', ');
+      }
+    }
+
+    html += `
+      <div class="review-card">
+        <div class="review-card__top">
+          <span class="review-card__q-index">Frage ${i + 1}</span>
+          ${ans
+            ? (ans.skipped
+              ? '<span class="review-card__status wrong" style="background:#FEF3C7;color:#92400E;border-color:#FDE68A">⏭ Übersprungen</span>'
+              : `<span class="review-card__status ${wasCorrect ? 'correct' : 'wrong'}">${wasCorrect ? '✓ Richtig' : '✗ Falsch'}</span>`)
+            : '<span class="review-card__status wrong">Nicht beantwortet</span>'
+          }
+        </div>
+        <div class="review-card__question">${q.q}</div>
+        <div class="review-card__answer-row">
+          <div class="review-card__answer-block user-answer">
+            <div class="review-card__answer-label">Deine Antwort</div>
+            ${userAnswerText}
+          </div>
+          <div class="review-card__answer-block correct-answer">
+            <div class="review-card__answer-label">Richtige Antwort</div>
+            ${correctAnswerText}
+          </div>
+        </div>
+      </div>`;
+  });
+
+  // Back button
+  const canContinue = !isCompleted && state.completedTopics.includes(topicIdx - 1) || topicIdx === 0;
+  html += `
+    <div class="btn-row" style="margin-top:24px;gap:12px">
+      <button class="btn btn--secondary" id="btnBackFromReview">← Zurück</button>
+      ${!isCompleted ? `<button class="btn btn--primary" id="btnRetryFromReview" data-topic="${topicIdx}">Thema wiederholen</button>` : ''}
+    </div>`;
+
+  $('#viewQuiz').removeClass('hidden').html(html);
+  mainContent().scrollTop(0);
+
+  $('#btnBackFromReview').on('click', function () {
+    if (state.mode === 'quiz' || state.completedTopics.length > 0) {
+      const lastActive = state.currentTopic;
+      renderQuestion(lastActive, state.currentQuestion < TOPICS[lastActive].questions.length ? state.currentQuestion : 0);
+    } else {
+      showTopicResult(topicIdx);
+    }
+    // Go back to current quiz state sensibly
+    const activeTopic = state.completedTopics.includes(topicIdx)
+      ? (topicIdx + 1 < TOPICS.length ? topicIdx + 1 : topicIdx)
+      : topicIdx;
+    if (state.completedTopics.includes(topicIdx) && topicIdx + 1 < TOPICS.length && !state.completedTopics.includes(topicIdx + 1)) {
+      renderTopic(topicIdx + 1);
+    } else {
+      showTopicResult(topicIdx);
+    }
+  });
+
+  $('#btnRetryFromReview').on('click', function () {
+    const t = parseInt($(this).data('topic'));
+    state.answers[t] = [];
+    renderTopic(t);
+  });
+}
+
+// ═══════════════════════════════════════════════
+// ALL DONE
+// ═══════════════════════════════════════════════
+function showAllDone() {
+  let totalQ = 0;
+  let totalCorrect = 0;
+  TOPICS.forEach(function (t, i) {
+    const ans = state.answers[i] || [];
+    totalQ += ans.length;
+    ans.forEach(function (a) { if (a && a.correct) totalCorrect++; });
+  });
+
+  const totalSkipped = state.skippedTopics.length;
+  const allPerfect = state.completedTopics.length === TOPICS.length && totalSkipped === 0;
+  const icon = allPerfect ? '🎓' : (totalSkipped > 0 ? '📋' : '✅');
+  const title = allPerfect ? 'Perfekt! Alle Themen 100% abgeschlossen!'
+    : (totalSkipped > 0 ? 'Durchgang abgeschlossen – einige Themen übersprungen' : 'Alle Themen abgeschlossen!');
+
+  // Build per-topic retry buttons
+  let topicBtns = '<div style="margin:20px 0 24px">';
+  topicBtns += '<p style="font-size:0.8rem;color:#6B7280;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px">Einzelne Themen wiederholen:</p>';
+  topicBtns += '<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">';
+  TOPICS.forEach(function(t, i) {
+    const isDone = state.completedTopics.includes(i);
+    const isSkip = state.skippedTopics.includes(i);
+    const col = isDone ? '#15803D' : (isSkip ? '#DC2626' : '#2563EB');
+    const bg  = isDone ? '#DCFCE7' : (isSkip ? '#FEE2E2' : '#DBEAFE');
+    const lbl = isDone ? '✓' : (isSkip ? '⏭' : '○');
+    topicBtns += `<button class="btn btn--sm btn-retry-topic" data-topicidx="${i}"
+      style="background:${bg};color:${col};border-color:${col}30">
+      ${lbl} ${t.shortTitle}
+    </button>`;
+  });
+  topicBtns += '</div></div>';
+
+  const html = `
+    <div class="completion-screen" style="margin-top:20px">
+      <span class="completion-screen__icon">${icon}</span>
+      <h2 class="completion-screen__title">${title}</h2>
+      <p class="completion-screen__sub">Du hast ${state.completedTopics.length} von ${TOPICS.length} Themen perfekt abgeschlossen.</p>
+      <div class="completion-screen__score">
+        <div class="completion-screen__score-item">
+          <span class="completion-screen__score-num">${totalCorrect}</span>
+          <span class="completion-screen__score-label">Richtig</span>
+        </div>
+        <div class="completion-screen__score-div"></div>
+        <div class="completion-screen__score-item">
+          <span class="completion-screen__score-num">${totalQ}</span>
+          <span class="completion-screen__score-label">Gesamt</span>
+        </div>
+        <div class="completion-screen__score-div"></div>
+        <div class="completion-screen__score-item">
+          <span class="completion-screen__score-num">${totalQ > 0 ? Math.round(totalCorrect / totalQ * 100) : 0}%</span>
+          <span class="completion-screen__score-label">Score</span>
+        </div>
+        ${totalSkipped > 0 ? `
+        <div class="completion-screen__score-div"></div>
+        <div class="completion-screen__score-item">
+          <span class="completion-screen__score-num" style="color:#DC2626">${totalSkipped}</span>
+          <span class="completion-screen__score-label">Übersprungen</span>
+        </div>` : ''}
+      </div>
+      ${topicBtns}
+      <div class="btn-row" style="justify-content:center;gap:12px">
+        <button class="btn btn--primary" id="btnResetAll">↺ Komplett neu starten</button>
+        ${totalSkipped > 0 ? `<button class="btn btn--secondary" id="btnRetrySkipped">🔴 Übersprungene wiederholen</button>` : ''}
+      </div>
+    </div>`;
+
+  $('#viewQuiz').html(html);
+  renderSidebar();
+  mainContent().scrollTop(0);
+
+  // Per-topic retry
+  $(document).on('click', '.btn-retry-topic', function() {
+    const t = parseInt($(this).data('topicidx'));
+    state.answers[t] = [];
+    state.skippedTopics = state.skippedTopics.filter(function(x){return x!==t;});
+    if(state.attemptCounts[t]) state.attemptCounts[t] = {};
+    renderTopic(t);
+  });
+
+  // Retry all skipped
+  $('#btnRetrySkipped').on('click', function() {
+    const firstSkipped = state.skippedTopics[0];
+    if (firstSkipped !== undefined) {
+      state.answers[firstSkipped] = [];
+      if(state.attemptCounts[firstSkipped]) state.attemptCounts[firstSkipped] = {};
+      renderTopic(firstSkipped);
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════
+// HELPER
+// ═══════════════════════════════════════════════
+function mainContent() { return $('#mainContent'); }
+</script>
+</body>
+</html>
