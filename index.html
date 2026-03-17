@@ -357,6 +357,8 @@ function showTopicOptions(topicIdx) {
     </div>
   `;
 
+  // Always hide welcome, show quiz area
+  $('#viewWelcome').addClass('hidden');
   $('#viewQuiz').removeClass('hidden').html(html);
   mainContent().scrollTop(0);
 
@@ -383,7 +385,10 @@ function showTopicOptions(topicIdx) {
     showTopicOptions(topicIdx + 1);
   });
   $('#btnJumpBack').on('click', function () {
-    if (state.mode === 'quiz') {
+    if (state.mode === 'welcome') {
+      $('#viewQuiz').addClass('hidden');
+      $('#viewWelcome').removeClass('hidden');
+    } else if (state.mode === 'quiz') {
       renderQuestion(state.currentTopic, state.currentQuestion || 0);
     } else {
       showTopicResult(state.currentTopic);
