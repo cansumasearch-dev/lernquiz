@@ -179,9 +179,13 @@ function loadState() {
     var raw = localStorage.getItem(SAVE_KEY);
     if (!raw) return null;
     var parsed = JSON.parse(raw);
-    // Merge with freshState to ensure all keys exist
     var base = freshState();
-    return Object.assign(base, parsed);
+    var merged = Object.assign(base, parsed);
+    // Ensure new fields always exist even in old saves
+    if (!merged.topicRetryCounts) merged.topicRetryCounts = {};
+    if (!merged.skippedTopics)    merged.skippedTopics = [];
+    if (!merged.attemptCounts)    merged.attemptCounts = {};
+    return merged;
   } catch(e) { return null; }
 }
 
@@ -369,9 +373,13 @@ function showTopicOptions(topicIdx) {
 
   // Button handlers
   $('#btnJumpRetry').on('click', function () {
+    if (!state.topicRetryCounts) state.topicRetryCounts = {};
+    // Only count as retry if topic was already attempted
+    if (state.answers[topicIdx] && state.answers[topicIdx].length > 0) {
+      state.topicRetryCounts[topicIdx] = (state.topicRetryCounts[topicIdx] || 0) + 1;
+    }
     state.answers[topicIdx] = [];
     state.skippedTopics = (state.skippedTopics||[]).filter(function(t){return t!==topicIdx;});
-    // Only remove from completedTopics if retrying, keep others intact
     state.completedTopics = state.completedTopics.filter(function(t){return t!==topicIdx;});
     if (state.attemptCounts[topicIdx]) state.attemptCounts[topicIdx] = {};
     saveState();
@@ -517,13 +525,20 @@ function getQCount(topicIdx) {
 // RENDER TOPIC (Quiz Mode)
 // ═══════════════════════════════════════════════
 function renderTopic(topicIdx) {
+  // If topic is already completed or skipped, show result screen instead of restarting
+  const alreadyDone = (state.completedTopics || []).includes(topicIdx)
+                   || (state.skippedTopics   || []).includes(topicIdx);
+  if (alreadyDone && topicIdx < TOPICS.length) {
+    state.currentTopic = topicIdx;
+    state.viewingTopic = topicIdx;
+    saveState();
+    renderSidebar();
+    showTopicResult(topicIdx);
+    return;
+  }
   state.currentTopic = topicIdx;
   state.currentQuestion = 0;
   state.viewingTopic = topicIdx;
-  // Only count as retry if topic was already started (has answers)
-  if (state.answers[topicIdx] && state.answers[topicIdx].length > 0) {
-    state.topicRetryCounts[topicIdx] = (state.topicRetryCounts[topicIdx] || 0) + 1;
-  }
   saveState();
   state.answers[topicIdx] = [];
   // Generate fresh random order on every (re)start
@@ -1058,7 +1073,7 @@ function showTopicResult(topicIdx) {
       </div>`;
 
   if (!allCorrect) {
-    const retries = state.topicRetryCounts[topicIdx] || 0;
+    const retries = (state.topicRetryCounts || {})[topicIdx] || 0;
     const canSkipNow = retries >= 3;
     const retriesLeft = Math.max(0, 3 - retries);
     const skipForwardBtn = canSkipNow
@@ -1092,7 +1107,10 @@ function showTopicResult(topicIdx) {
   mainContent().scrollTop(0);
 
   $('#btnRetry').on('click', function () {
+    if (!state.topicRetryCounts) state.topicRetryCounts = {};
+    state.topicRetryCounts[topicIdx] = (state.topicRetryCounts[topicIdx] || 0) + 1;
     state.answers[topicIdx] = [];
+    saveState();
     renderTopic(topicIdx);
   });
 
@@ -1295,6 +1313,7 @@ function showAllDone() {
     state.skippedTopics = state.skippedTopics.filter(function(x){return x!==t;});
     state.completedTopics = state.completedTopics.filter(function(x){return x!==t;});
     if(state.attemptCounts[t]) state.attemptCounts[t] = {};
+    if(state.topicRetryCounts) state.topicRetryCounts[t] = 0;
     saveState();
     renderTopic(t);
   });
