@@ -141,21 +141,94 @@ let state = {
 // ═══════════════════════════════════════════════
 const QUESTIONS_PER_TOPIC = 6;
 
+const SAVE_KEY = 'mediengestalter_quiz_state';
+
 function freshState() {
   return {
     currentTopic: 0,
     currentQuestion: 0,
     answers: {},
     completedTopics: [],
-    skippedTopics: [],   // topics where at least 1 question was skipped
-    attemptCounts: {},   // attemptCounts[topicIdx][qIdx] = number of wrong attempts
+    skippedTopics: [],
+    attemptCounts: {},
     mode: 'welcome',
     shuffledQuestions: {}
   };
 }
 
+function saveState() {
+  try {
+    // shuffledQuestions can be re-generated, no need to save
+    var toSave = {
+      currentTopic:    state.currentTopic,
+      currentQuestion: state.currentQuestion,
+      answers:         state.answers,
+      completedTopics: state.completedTopics,
+      skippedTopics:   state.skippedTopics,
+      attemptCounts:   state.attemptCounts,
+      mode:            state.mode
+    };
+    localStorage.setItem(SAVE_KEY, JSON.stringify(toSave));
+  } catch(e) {}
+}
+
+function loadState() {
+  try {
+    var raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return null;
+    var parsed = JSON.parse(raw);
+    // Merge with freshState to ensure all keys exist
+    var base = freshState();
+    return Object.assign(base, parsed);
+  } catch(e) { return null; }
+}
+
+function clearSavedState() {
+  try { localStorage.removeItem(SAVE_KEY); } catch(e) {}
+}
+
 $(function () {
-  renderSidebar();
+  // Load saved state
+  var saved = loadState();
+  if (saved) {
+    state = saved;
+    renderSidebar();
+    // Restore view
+    if (state.mode === 'quiz' && state.currentTopic !== undefined) {
+      $('#viewWelcome').addClass('hidden');
+      // Show a resume banner
+      var resumeHtml = `
+        <div class="completion-screen" style="margin-top:20px">
+          <span class="completion-screen__icon">💾</span>
+          <h2 class="completion-screen__title">Willkommen zurück!</h2>
+          <p class="completion-screen__sub">
+            Du warst zuletzt bei <strong>Thema ${state.currentTopic + 1}: ${TOPICS[state.currentTopic].shortTitle}</strong>,
+            Frage ${(state.currentQuestion || 0) + 1}.
+          </p>
+          <div class="btn-row" style="justify-content:center;gap:12px;margin-top:8px">
+            <button class="btn btn--primary" id="btnResume">▶ Weitermachen</button>
+            <button class="btn btn--ghost" id="btnResumeFromStart">↺ Neu starten</button>
+          </div>
+        </div>
+      `;
+      $('#viewQuiz').removeClass('hidden').html(resumeHtml);
+
+      $('#btnResume').on('click', function() {
+        renderQuestion(state.currentTopic, state.currentQuestion || 0);
+      });
+      $('#btnResumeFromStart').on('click', function() {
+        clearSavedState();
+        state = freshState();
+        renderSidebar();
+        $('#viewQuiz').addClass('hidden');
+        $('#viewWelcome').removeClass('hidden');
+      });
+    } else {
+      renderSidebar();
+    }
+  } else {
+    renderSidebar();
+  }
 
   // Mobile sidebar
   function openSidebar() {
@@ -171,18 +244,19 @@ $(function () {
   $('#btnOpenSidebar').on('click', openSidebar);
   $('#sidebarBackdrop').on('click', closeSidebar);
 
-  // Close sidebar when a topic is selected on mobile
   $(document).on('click', '[data-topic]', function() {
     if ($(window).width() <= 768) closeSidebar();
   });
 
   $('#btnStart').on('click', function () {
     state.mode = 'quiz';
+    saveState();
     $('#viewWelcome').addClass('hidden');
     renderTopic(0);
   });
 
   $(document).on('click', '#btnResetAll', function () {
+    clearSavedState();
     state = freshState();
     $('[data-topic]').off('click');
     renderSidebar();
@@ -290,7 +364,10 @@ function showTopicOptions(topicIdx) {
   $('#btnJumpRetry').on('click', function () {
     state.answers[topicIdx] = [];
     state.skippedTopics = (state.skippedTopics||[]).filter(function(t){return t!==topicIdx;});
+    // Only remove from completedTopics if retrying, keep others intact
+    state.completedTopics = state.completedTopics.filter(function(t){return t!==topicIdx;});
     if (state.attemptCounts[topicIdx]) state.attemptCounts[topicIdx] = {};
+    saveState();
     renderTopic(topicIdx);
   });
   $('#btnJumpContinue').on('click', function () {
@@ -420,6 +497,7 @@ function getQCount(topicIdx) {
 function renderTopic(topicIdx) {
   state.currentTopic = topicIdx;
   state.currentQuestion = 0;
+  saveState();
   state.answers[topicIdx] = [];
   // Generate fresh random order on every (re)start
   state.shuffledQuestions = state.shuffledQuestions || {};
@@ -431,6 +509,7 @@ function renderTopic(topicIdx) {
 
 function renderQuestion(topicIdx, qIdx) {
   state.currentQuestion = qIdx;
+  saveState();
   const topic = TOPICS[topicIdx];
   const q = getQ(topicIdx, qIdx);
   const total = getQCount(topicIdx);
@@ -615,6 +694,7 @@ function evaluateOrder(topicIdx, qIdx, userOrder) {
   const attempts = state.attemptCounts[topicIdx][qIdx] || 0;
 
   state.answers[topicIdx][qIdx] = { userAnswer: userOrder, correct: isCorrect, type: 'order' };
+  saveState();
 
   // Disable items and color them
   $('.order-item').addClass('is-disabled');
@@ -671,6 +751,7 @@ function evaluateMC(topicIdx, qIdx, selected) {
 
   // Record answer
   state.answers[topicIdx][qIdx] = { userAnswer: selected, correct: isCorrect, type: q.type };
+  saveState();
 
   // Disable all options
   $('.option-item').addClass('is-disabled');
@@ -745,6 +826,7 @@ function skipQuestion(topicIdx, qIdx) {
   }
   // Remove from completedTopics if it was there
   state.completedTopics = state.completedTopics.filter(function(t) { return t !== topicIdx; });
+  saveState();
   renderSidebar();
   advanceQuestion(topicIdx, qIdx);
 }
@@ -783,6 +865,7 @@ function showModelAnswer(topicIdx, qIdx, userText) {
 
 function recordTextAnswer(topicIdx, qIdx, userText, isCorrect) {
   state.answers[topicIdx][qIdx] = { userAnswer: userText, correct: isCorrect, type: 'text' };
+  saveState();
 
   $('.self-eval').remove();
 
@@ -827,6 +910,7 @@ function showTopicResult(topicIdx) {
     if (!state.skippedTopics.includes(topicIdx)) state.skippedTopics.push(topicIdx);
     state.completedTopics = state.completedTopics.filter(function(t) { return t !== topicIdx; });
   }
+  saveState();
 
   renderSidebar();
 
@@ -1092,7 +1176,9 @@ function showAllDone() {
     const t = parseInt($(this).data('topicidx'));
     state.answers[t] = [];
     state.skippedTopics = state.skippedTopics.filter(function(x){return x!==t;});
+    state.completedTopics = state.completedTopics.filter(function(x){return x!==t;});
     if(state.attemptCounts[t]) state.attemptCounts[t] = {};
+    saveState();
     renderTopic(t);
   });
 
