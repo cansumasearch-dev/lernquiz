@@ -117,6 +117,8 @@ let state = {
   currentQuestion: 0,
   answers: {},
   completedTopics: [],
+  skippedTopics: [],
+  attemptCounts: {},
   mode: 'welcome',
   shuffledQuestions: {}
 };
@@ -175,8 +177,8 @@ function renderSidebar() {
 
     $item.removeClass('is-active is-completed is-locked is-available is-skipped');
 
-    const isCompleted = state.completedTopics.includes(i);
-    const isSkipped   = state.skippedTopics.includes(i);
+    const isCompleted = (state.completedTopics || []).includes(i);
+    const isSkipped   = (state.skippedTopics || []).includes(i);
     const isCurrent   = state.currentTopic === i && state.mode === 'quiz';
     const isLocked    = !isCompleted && !isSkipped && i > 0
                         && !state.completedTopics.includes(i - 1)
