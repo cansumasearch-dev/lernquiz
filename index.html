@@ -152,7 +152,8 @@ function freshState() {
     skippedTopics: [],
     attemptCounts: {},
     mode: 'welcome',
-    shuffledQuestions: {}
+    shuffledQuestions: {},
+    viewingTopic: null   // which topic is currently displayed (can differ from currentTopic)
   };
 }
 
@@ -260,6 +261,7 @@ $(function () {
     state = freshState();
     $('[data-topic]').off('click');
     renderSidebar();
+    state.viewingTopic = null;
     $('#viewQuiz').addClass('hidden');
     $('#viewWelcome').removeClass('hidden');
   });
@@ -357,6 +359,8 @@ function showTopicOptions(topicIdx) {
     </div>
   `;
 
+  state.viewingTopic = topicIdx;
+  renderSidebar();
   // Always hide welcome, show quiz area
   $('#viewWelcome').addClass('hidden');
   $('#viewQuiz').removeClass('hidden').html(html);
@@ -415,7 +419,8 @@ function renderSidebar() {
 
     const isCompleted = (state.completedTopics || []).includes(i);
     const isSkipped   = (state.skippedTopics || []).includes(i);
-    const isCurrent   = state.currentTopic === i && state.mode === 'quiz' && !isCompleted && !isSkipped;
+    const displayedTopic = (state.viewingTopic !== null && state.viewingTopic !== undefined) ? state.viewingTopic : state.currentTopic;
+    const isCurrent   = displayedTopic === i && !isCompleted && !isSkipped;
     const isLocked    = !isCompleted && !isSkipped && i > 0
                         && !state.completedTopics.includes(i - 1)
                         && !state.skippedTopics.includes(i - 1)
@@ -502,6 +507,7 @@ function getQCount(topicIdx) {
 function renderTopic(topicIdx) {
   state.currentTopic = topicIdx;
   state.currentQuestion = 0;
+  state.viewingTopic = topicIdx;
   saveState();
   state.answers[topicIdx] = [];
   // Generate fresh random order on every (re)start
@@ -514,6 +520,7 @@ function renderTopic(topicIdx) {
 
 function renderQuestion(topicIdx, qIdx) {
   state.currentQuestion = qIdx;
+  state.viewingTopic = topicIdx;
   saveState();
   const topic = TOPICS[topicIdx];
   const q = getQ(topicIdx, qIdx);
@@ -993,6 +1000,7 @@ function advanceQuestion(topicIdx, qIdx) {
 // TOPIC RESULT
 // ═══════════════════════════════════════════════
 function showTopicResult(topicIdx) {
+  state.viewingTopic = topicIdx;
   const topic = TOPICS[topicIdx];
   const answers = state.answers[topicIdx] || [];
   const total = answers.length;
@@ -1094,6 +1102,7 @@ function showTopicResult(topicIdx) {
 // REVIEW
 // ═══════════════════════════════════════════════
 function renderReview(topicIdx) {
+  state.viewingTopic = topicIdx;
   const topic = TOPICS[topicIdx];
   const answers = state.answers[topicIdx] || [];
   const isCompleted = state.completedTopics.includes(topicIdx);
